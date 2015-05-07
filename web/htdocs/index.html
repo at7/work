@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.getJSON demo</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+ 
+<div class="publication"></div>
+ 
+<script>
+(function() {
+  function localjsonpcallback(json) {
+  };
+
+  var ensemblAPI = "http://rest.ensembl.org/archive/id/ENSG00000157764?callback=?"; 
+  var europepmcAPI = "http://www.ebi.ac.uk/europepmc/webservices/rest/search/query=14598164&format=json&callback=?";
+
+ $.ajax({
+    url: europepmcAPI,
+    dataType: "jsonp",
+    jsonpCallback: 'localjsonpcallback',
+    jsonp: 'callback',
+  }).done(function(data) {
+    alert( data.version );
+  });
+
+
+
+})();
+</script>
+ 
+</body>
+</html>
