@@ -26,13 +26,33 @@ sub test_new_schema {
   $registry->load_all($registry_file);
 
   my $ia = $registry->get_adaptor('rat', 'variation', 'individual'); 
-  my $individuals = $ia->fetch_all();
+  my $igta = $registry->get_adaptor('rat', 'variation', 'individualgenotype');
+  my $va = $registry->get_adaptor('rat', 'variation', 'variation');
+  my $vfa = $registry->get_adaptor('rat', 'variation', 'variationfeature');
+  my $sa = $registry->get_adaptor('rat', 'core', 'slice');  
+
+  my $chrom1 = $sa->fetch_by_region('chromosome', 1);
+  my $vfs = $vfa->fetch_all_by_Slice($chrom1);
+
+  foreach my $vf (@$vfs) {
+    my $variation = $vf->variation;
+    my $variation_name = $variation->name;
+    my $igts = $igta->fetch_all_by_Variation($variation);
+    foreach my $igt (@$igts) {
+      my $genotype_string = $igt->genotype_string;
+      my $individual_name =  $igt->individual()->name;
+      print STDERR "$variation_name: $genotype_string, $individual_name\n";
+    }
+  }
+
+
+#  my $individuals = $ia->fetch_all();
   # fetch_all_Samples_by_Individual($individual);
   # 
 
-  foreach my $i (@$individuals) {
-    print $i->name, "\n";
-  }
+#  foreach my $i (@$individuals) {
+#    print $i->name, "\n";
+#  }
 =begin
   Create a new study:
   my $study_wgs = Bio::EnsEMBL::Variation::Study->new(-name => 'WGS');
@@ -49,6 +69,15 @@ sub test_new_schema {
   Genotypes
   my $individual_genotypes = $indivdiual_genotype_adaptor->fetch_all_by_Variation($variation);
   my $individual_genotypes = $indivdiual_genotype_adaptor->fetch_all_by_Variation($variation, $study);
+  my $individual_genotypes = $indivdiual_genotype_adaptor->fetch_all_by_Variation($variation, $individual);
+  my $individual_genotypes = $indivdiual_genotype_adaptor->fetch_all_by_Variation($variation, $sample);
+
+
+  
+
+
+
+
 
 =end
 =cut
