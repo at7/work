@@ -1,0 +1,8 @@
+#find_article input {
+  float: right;
+}
+
+#find_article #pmid {
+  overflow: hidden;
+  padding-right: .5em;
+}
