@@ -1,0 +1,74 @@
+-/ensembl-webcode/modules/EnsEMBL/Web/
+Component/StructuralVariation/SupportingEvidence.pm:
+Component/Variation/Explore.pm
+Component/Variation/IndividualGenotypes.pm
+Component/Variation/IndividualGenotypesSearch.pm
+Component/Variation/PopulationGenotypes.pm
+Component/Variation/Summary.pm
+Configuration/Variation.pm
+Object/Location.pm
+Object/Slice.pm
+Object/Transcript.pm
+Object/Variation.pm
+OldLinks.pm
+ViewConfig/Transcript/PopulationImage.pm
+ZMenu/Oligo.pm
+Command/Export/HaploviewFiles.pm
+Component/Export/PopulationFormats.pm
+Component/Location/LD.pm
+Component/Location/SequenceAlignment.pm
+ConfigPacker.pm
+Configuration/Variation.pm
+Object/Location.pm
+Object/Slice.pm
+ViewConfig/Location/SequenceAlignment.pm
+ZMenu/StructuralVariation.pm
+
+Bio::EnsEMBL::Variation::Sample->new(
+  -individual => $individual,
+  -name => $name,
+  -description => $description,
+);
+
+# add study_id, base_individual_id, sample
+
+IndividualAdaptor->fetch_all_by_Study
+IndividualAdaptor->fetch_all_by_Individual
+  
+Individual
+
+Create new samples/individuals
+
+- Individual 
+  individual_id
+  name
+  description
+  gender
+  father_individual_id
+  mother_individual_id
+  individual_type_id
+  
+- Sample
+  sample_id
+  individual_id
+  name
+  description
+  display
+  has_coverage
+  variation_set_id
+
+- sample_individual
+  
+
+Store samples for an individual:
+- dbSNP import populate individual table
+-
+
+Bio::EnsEMBL::Variation::Individual->new_fast({
+          name            => $prefix.$ind_name,
+          adaptor         => $ia,
+          type_individual => 'outbred',
+          display         => 'UNDISPLAYABLE',
+          dbID            => --($self->{_individual_id}),
+        });
+
