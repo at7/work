@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 use Bio::EnsEMBL::MappedSliceContainer;
-use Bio::EnsEMBL::Variation::DBSQL::StrainSliceAdaptor;
+use Bio::EnsEMBL::DBSQL::StrainSliceAdaptor;
 use Bio::EnsEMBL::Registry;
 
 my $registry = 'Bio::EnsEMBL::Registry';
@@ -24,20 +24,41 @@ my $sample_adaptor = $registry->get_adaptor('mouse', 'variation', 'sample');
 my $sg_adaptor = $registry->get_adaptor('mouse', 'variation', 'samplegenotype');
 $sg_adaptor->db->use_vcf(1);
 
-
 my $slice = $slice_adaptor->fetch_by_region('chromosome', 14, 56887795, 56962579);
 
 my $mgp_samples = $sample_adaptor->fetch_all_by_name('MGP:A/J');
 my $sample = $mgp_samples->[0];
 
+#my $msc = Bio::EnsEMBL::MappedSliceContainer->new(-SLICE => $slice, -EXPANDED => 1);
+#my $strain_slices = $strain_slice_adaptor->fetch_by_name($msc, 'MGP:A/J');
+#my $allele_features = $strain_slices->[0]->get_all_AlleleFeatures;
+#print scalar @$allele_features, "\n";
+
+
 my $msc = Bio::EnsEMBL::MappedSliceContainer->new(-SLICE => $slice, -EXPANDED => 1);
+$msc->set_StrainSliceAdaptor(Bio::EnsEMBL::DBSQL::StrainSliceAdaptor->new($slice->adaptor->db));
+$msc->attach_StrainSlice($_) for @$mgp_samples;
+
+foreach (@{$msc->get_all_MappedSlices}) {
+  my $slice = $_->get_all_Slice_Mapper_pairs->[0][0];
+
+#  push @slices, {
+#    name  => $slice->can('display_Slice_name') ? $slice->display_Slice_name : $config->{'species'},
+#    slice => $slice,
+#    seq   => $_->seq(1)
+#  };
+
+}
+
+
+
 #$msc->set_StrainSliceAdaptor($strain_slice_adaptor);
 #$msc->attach_StrainSlice($_) for @$mgp_samples;
 
-new_strain_slice($slice, $sample->name);
-print_allele_features($slice, $sample);
-print_sample_genotypes($slice);
-fetch_GT_by_variation();
+#new_strain_slice($slice, $sample->name);
+#print_allele_features($slice, $sample);
+#print_sample_genotypes($slice);
+#fetch_GT_by_variation();
 
 sub new_strain_slice {
   my $slice = shift;
