@@ -5,6 +5,12 @@ use Bio::EnsEMBL::Registry;
 my $registry = 'Bio::EnsEMBL::Registry';
 
 
+$registry->load_registry_from_db(
+  -host => 'ensembldb.ensembl.org',
+  -user => 'anonymous',
+  -db_version => 83,
+);
+
 my $registry_file = 'ensembl.registry';
 my $species = 'human';
 
@@ -34,6 +40,9 @@ my $slice = $slice_adaptor->fetch_by_region('chromosome',$chr,$start,$end); #get
 $ldFeatureContainerAdaptor->db->use_vcf(1);
 #my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice);
 my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice, $population);
+
+
+
 print_container_content($ldFeatureContainer);
 
 print "fetch_by_VariationFeatures use VCF\n";
@@ -75,3 +84,5 @@ sub count_ld_values {
   }
   return $ld_values;
 }
+=end
+=cut
