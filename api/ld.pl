@@ -22,15 +22,20 @@ my $cdba = $registry->get_DBAdaptor($species, 'core');
 my $population_adaptor = $vdba->get_PopulationAdaptor;
 my $slice_adaptor = $cdba->get_SliceAdaptor;
 my $ldFeatureContainerAdaptor = $vdba->get_LDFeatureContainerAdaptor;
+$ldFeatureContainerAdaptor->db->use_vcf(1);
+my $max_snp_distance = 500_000;
+$ldFeatureContainerAdaptor->max_snp_distance($max_snp_distance);
 my $variation_adaptor = $vdba->get_VariationAdaptor;
 my $vfa = $vdba->get_VariationFeatureAdaptor;
+
 
 #my $chr = 6;  #defining the region in chromosome 6
 #my $start = 25_837_556;
 #my $end = 25_843_455;
-my $chr = 7;
-my $start =  48_902_556;
-my $end = 48_903_891;
+#my $chr = 7;
+#my $start =  48_902_556;
+#my $end = 48_903_891;
+#my $variant_name = 'rs1042779';
 my $variant_name = 'rs611646';
 
 my $variant = $variation_adaptor->fetch_by_name($variant_name);
@@ -38,18 +43,16 @@ print $variant->name, "\n";
 my $vfs = $variant->get_all_VariationFeatures;
 my $vf = $vfs->[0];
 
-my $population_name = '1000GENOMES:phase_3:ACB'; #we only want LD in this population
+my $population_name = '1000GENOMES:phase_3:KHV'; #we only want LD in this population
 my $population = $population_adaptor->fetch_by_name($population_name); #get population object from database
 
-
 #print "fetch_by_Slice use VCF\n";
-my $slice = $slice_adaptor->fetch_by_region('chromosome',$chr,$start,$end); #get slice of the region
-$ldFeatureContainerAdaptor->db->use_vcf(1);
+#my $slice = $slice_adaptor->fetch_by_region('chromosome',$chr,$start,$end); #get slice of the region
 #$ldFeatureContainerAdaptor->db->include_failed_variations(1);
 #my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice);
-my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice, $population);
+#my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice, $population);
 
-$ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_VariationFeature($vf, $population);
+my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_VariationFeature($vf, $population);
 
 #print_container_content($ldFeatureContainer);
 
