@@ -1,6 +1,4 @@
 use strict;
-use warnings;
-
 my $start_time = time;
 
 use Bio::EnsEMBL::Registry;
@@ -35,12 +33,13 @@ my $population = $population_adaptor->fetch_by_name($population_name); #get popu
 print "fetch_by_Slice use VCF\n";
 my $slice = $slice_adaptor->fetch_by_region('chromosome',$chr,$start,$end); #get slice of the region
 $ldFeatureContainerAdaptor->db->use_vcf(1);
+$ldFeatureContainerAdaptor->db->include_failed_variations(1);
 my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice, $population);
 #print_container_content($ldFeatureContainer);
 
 sub print_container_content {
   my $ldFeatureContainer = shift;
-  print "Name ", $ldFeatureContainer->name, "\n";
+#  print "Name ", $ldFeatureContainer->name, "\n";
   my @variations = @{$ldFeatureContainer->get_variations()};
   print "Variations: ", scalar @variations, "\n";
   my @ld_values = @{$ldFeatureContainer->get_all_ld_values}; 
