@@ -1,0 +1,87 @@
+100519
+1000GENOMES:phase_3:HG00341
+AlleleFeatures 3922
+ref_slice_start 3214482 ref_slice_end 3315000
+
+vf_allele_string A/- alt_allele -
+af_length 1 af_length_diff -1 af_start 10679 af_end 10679
+start_ref_slice 3214482 end_ref_slice 3225159 allele_length 0
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 1 end_strain 10678 start_ref_slice 3214482 end_ref_slice 3225159
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 10679 end_strain 10678 start_ref_slice 3225160 end_ref_slice 3225160
+vf_allele_string -/TAA alt_allele TAA
+af_length 0 af_length_diff 3 af_start 14951 af_end 14950
+start_ref_slice 3225161 end_ref_slice 3229431 allele_length 3
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 10679 end_strain 14949 start_ref_slice 3225161 end_ref_slice 3229431
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 14950 end_strain 14952 start_ref_slice 3229432 end_ref_slice 3229431
+vf_allele_string AGG/- alt_allele -
+af_length 3 af_length_diff -3 af_start 25078 af_end 25080
+start_ref_slice 3229432 end_ref_slice 3239558 allele_length 0
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 14953 end_strain 25079 start_ref_slice 3229432 end_ref_slice 3239558
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 25080 end_strain 25079 start_ref_slice 3239559 end_ref_slice 3239561
+vf_allele_string A/- alt_allele -
+af_length 1 af_length_diff -1 af_start 28898 af_end 28898
+start_ref_slice 3239562 end_ref_slice 3243378 allele_length 0
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 25080 end_strain 28896 start_ref_slice 3239562 end_ref_slice 3243378
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 28897 end_strain 28896 start_ref_slice 3243379 end_ref_slice 3243379
+vf_allele_string A/- alt_allele -
+af_length 1 af_length_diff -1 af_start 35069 af_end 35069
+start_ref_slice 3243380 end_ref_slice 3249549 allele_length 0
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 28897 end_strain 35066 start_ref_slice 3243380 end_ref_slice 3249549
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 35067 end_strain 35066 start_ref_slice 3249550 end_ref_slice 3249550
+vf_allele_string -/GGGGTGAGGT/GGGGTGAGGTGGGGTGAGGT alt_allele GGGGTGAGGT
+af_length 0 af_length_diff 10 af_start 36825 af_end 36824
+start_ref_slice 3249551 end_ref_slice 3251305 allele_length 10
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 35067 end_strain 36821 start_ref_slice 3249551 end_ref_slice 3251305
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 36822 end_strain 36831 start_ref_slice 3251306 end_ref_slice 3251305
+vf_allele_string G/- alt_allele -
+af_length 1 af_length_diff -1 af_start 37903 af_end 37903
+start_ref_slice 3251306 end_ref_slice 3252383 allele_length 0
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 36832 end_strain 37909 start_ref_slice 3251306 end_ref_slice 3252383
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 37910 end_strain 37909 start_ref_slice 3252384 end_ref_slice 3252384
+vf_allele_string A/- alt_allele -
+af_length 1 af_length_diff -1 af_start 43114 af_end 43114
+start_ref_slice 3252385 end_ref_slice 3257594 allele_length 0
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 37910 end_strain 43119 start_ref_slice 3252385 end_ref_slice 3257594
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 43120 end_strain 43119 start_ref_slice 3257595 end_ref_slice 3257595
+vf_allele_string -/A/AA/AAAA alt_allele A
+af_length 0 af_length_diff 1 af_start 46647 af_end 46646
+start_ref_slice 3257596 end_ref_slice 3261127 allele_length 1
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 43120 end_strain 46651 start_ref_slice 3257596 end_ref_slice 3261127
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 46652 end_strain 46652 start_ref_slice 3261128 end_ref_slice 3261127
+vf_allele_string A/- alt_allele -
+af_length 1 af_length_diff -1 af_start 65570 af_end 65570
+start_ref_slice 3261128 end_ref_slice 3280050 allele_length 0
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 46653 end_strain 65575 start_ref_slice 3261128 end_ref_slice 3280050
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 65576 end_strain 65575 start_ref_slice 3280051 end_ref_slice 3280051
+vf_allele_string TT/- alt_allele -
+af_length 2 af_length_diff -2 af_start 82800 af_end 82801
+start_ref_slice 3280052 end_ref_slice 3297280 allele_length 0
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 65576 end_strain 82804 start_ref_slice 3280052 end_ref_slice 3297280
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 82805 end_strain 82804 start_ref_slice 3297281 end_ref_slice 3297282
+vf_allele_string AAA/- alt_allele -
+af_length 3 af_length_diff -3 af_start 86852 af_end 86854
+start_ref_slice 3297283 end_ref_slice 3301332 allele_length 0
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 82805 end_strain 86854 start_ref_slice 3297283 end_ref_slice 3301332
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 86855 end_strain 86854 start_ref_slice 3301333 end_ref_slice 3301335
+vf_allele_string -/A/AA/AAA alt_allele AAA
+af_length 0 af_length_diff 3 af_start 88028 af_end 88027
+start_ref_slice 3301336 end_ref_slice 3302508 allele_length 3
+
+end_ref_slice >= start_ref_slice add_map_coordinates start_strain 86855 end_strain 88027 start_ref_slice 3301336 end_ref_slice 3302508
+end_ref_slice >= start_ref_slice add_indel_coordinates start_strain 88028 end_strain 88030 start_ref_slice 3302509 end_ref_slice 3302508
+
+ADD REMAINING COORDS start_strain 88031 end_strain 100522 start_ref_slice 3302509 end_ref_slice 3315000
+
+total length diff 3
