@@ -191,9 +191,6 @@ if ($test_strain_slice) {
             my $ms_coord_end = $ms_coord->end;
             print "  MS coord $ms_coord start $ms_coord_start end $ms_coord_end\n";
       }
-      print "---------\n";
-
-
 
       foreach my $ref_coord ($m->map_coordinates('mapped_slice', 1, CORE::length($seq), $s->strand, 'mapped_slice')) {
         my $ref_slice_seq_name = $_->container->ref_slice->seq_region_name;
