@@ -81,6 +81,5 @@ sub print_response {
 
 
 # fetch all variants in FOXP2 gene,  print phenotypes, genotypes
-
 # compute variant effect
 
