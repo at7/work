@@ -20,10 +20,30 @@ my $vdba = $registry->get_DBAdaptor($species, 'variation');
 my $cdba = $registry->get_DBAdaptor($species, 'core');
 
 my $population_adaptor = $vdba->get_PopulationAdaptor;
+my $variation_adaptor = $vdba->get_VariationAdaptor;
 my $slice_adaptor = $cdba->get_SliceAdaptor;
 my $ldFeatureContainerAdaptor = $vdba->get_LDFeatureContainerAdaptor;
 $ldFeatureContainerAdaptor->db->use_vcf(1);
-my $max_snp_distance = 500_000;
+
+my $var1 = $variation_adaptor->fetch_by_name('rs7681154');
+print scalar @{$var1->get_all_VariationFeatures}, "\n";
+my $vf1 = $var1->get_all_VariationFeatures->[0];
+my $var2 = $variation_adaptor->fetch_by_name('rs2583983');
+print scalar @{$var2->get_all_VariationFeatures}, "\n";
+my $vf2 = $var2->get_all_VariationFeatures->[0];
+
+my $population_name = '1000GENOMES:phase_3:EUR'; #we only want LD in this population
+my $population = $population_adaptor->fetch_by_name($population_name); #get population object from database
+
+#$ldFeatureContainerAdaptor->fetch_by_VariationFeatures([$vf1, $vf2], $population);
+
+my @ld_values = @{$ldFeatureContainerAdaptor->fetch_by_VariationFeatures([$vf1, $vf2], $population)->get_all_ld_values()};
+
+print $var1->name, "\n";
+print $var2->name, "\n";
+
+=begin
+my $max_snp_distance = 800_000;
 $ldFeatureContainerAdaptor->max_snp_distance($max_snp_distance);
 my $variation_adaptor = $vdba->get_VariationAdaptor;
 my $vfa = $vdba->get_VariationFeatureAdaptor;
@@ -43,7 +63,7 @@ print $variant->name, "\n";
 my $vfs = $variant->get_all_VariationFeatures;
 my $vf = $vfs->[0];
 
-my $population_name = '1000GENOMES:phase_3:KHV'; #we only want LD in this population
+my $population_name = '1000GENOMES:phase_3:EUR'; #we only want LD in this population
 my $population = $population_adaptor->fetch_by_name($population_name); #get population object from database
 
 #print "fetch_by_Slice use VCF\n";
@@ -54,7 +74,7 @@ my $population = $population_adaptor->fetch_by_name($population_name); #get popu
 
 my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_VariationFeature($vf, $population);
 
-#print_container_content($ldFeatureContainer);
+print_container_content($ldFeatureContainer);
 
 print "fetch_by_VariationFeatures use VCF\n";
 #High LD between variations rs114473994-rs6904823
