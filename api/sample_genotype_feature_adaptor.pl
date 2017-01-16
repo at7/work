@@ -3,9 +3,16 @@ use Bio::EnsEMBL::Registry;
 
 my $registry = 'Bio::EnsEMBL::Registry';
 
-my $file = '/lustre/scratch110/ensembl/at7/release_85/ensembl.registry';
 
-$registry->load_all($file);
+$registry->load_registry_from_db(
+  -host => 'ensembldb.ensembl.org',
+  -user => 'anonymous',
+  -db_version => 86,
+);
+
+#my $file = '/lustre/scratch110/ensembl/at7/release_85/ensembl.registry';
+
+#$registry->load_all($file);
 
 my $sgfa = $registry->get_adaptor('mouse', 'variation', 'samplegenotypefeature');
 $sgfa->db->use_vcf(1);
@@ -57,4 +64,5 @@ foreach my $sgf (@$differences_sgfs) {
   }  
 
 }
-
+=end
+=cut

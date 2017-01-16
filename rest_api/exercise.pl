@@ -9,6 +9,8 @@ local $Data::Dumper::Terse = 1;
 local $Data::Dumper::Indent = 1;
 
 my $http = HTTP::Tiny->new();
+
+# requirements where to find endpoints
  
 my $ext = '/variation/human/rs56116432?genotypes=1';
 
@@ -81,4 +83,9 @@ sub print_response {
 
 # fetch all variants in FOXP2 gene,  print phenotypes, genotypes
 # compute variant effect
+
+# ensembl presentation
+
+
+
 

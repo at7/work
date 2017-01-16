@@ -4,7 +4,8 @@ my $registry = 'Bio::EnsEMBL::Registry';
 
 $registry->load_registry_from_db(
     -host => 'ensembldb.ensembl.org',
-    -user => 'anonymous'
+    -user => 'anonymous',
+    -port => 3337,
 );
 
 my $variation_adaptor = $registry->get_adaptor(
@@ -13,4 +14,11 @@ my $variation_adaptor = $registry->get_adaptor(
   'variation' # object type
 );
 
-my $variation = $variation_adaptor->fetch_by_name('rs1333049');
+$variation_adaptor->db->include_failed_variations(1);
+
+my $variation = $variation_adaptor->fetch_by_name('rs79022493');
+
+
+
+
+print $variation, "\n";

@@ -4,11 +4,9 @@ use Bio::EnsEMBL::Registry;
 
 my $registry = 'Bio::EnsEMBL::Registry';
 
-
 $registry->load_registry_from_db(
   -host => 'ensembldb.ensembl.org',
   -user => 'anonymous',
-#  -db_version => 83,
 );
 
 my $registry_file = 'ensembl.registry';
@@ -20,11 +18,27 @@ my $vdba = $registry->get_DBAdaptor($species, 'variation');
 my $cdba = $registry->get_DBAdaptor($species, 'core');
 
 my $population_adaptor = $vdba->get_PopulationAdaptor;
+my $population = $population_adaptor->fetch_by_name("1000GENOMES:phase_3:EUR");
 my $variation_adaptor = $vdba->get_VariationAdaptor;
 my $slice_adaptor = $cdba->get_SliceAdaptor;
 my $ldFeatureContainerAdaptor = $vdba->get_LDFeatureContainerAdaptor;
 $ldFeatureContainerAdaptor->db->use_vcf(1);
+my ($index_var, $chrom, $index_region_start, $index_region_end) = split /\s+/, "rs111781203 2 227795396 227795396";
+#my ($index_var, $chrom, $index_region_start, $index_region_end) = split /\s+/, "rs7556897 2 227795396 227795396";
 
+my $query_variation_feature;
+my $variation = $variation_adaptor->fetch_by_name('rs201098693');
+my $vf = $variation->get_all_VariationFeatures()->[0];
+
+my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_VariationFeature($vf, $population);
+
+foreach my $r_square (@{$ldFeatureContainer->get_all_r_square_values}){
+#  if ($r_square->{r2} >= 0.6){ 
+    print "High r2 (".($r_square->{r2}).") between variations ", $r_square->{variation1}->variation_name, "-", $r_square->{variation2}->variation_name, "\n";
+#  }
+}
+
+=begin
 my $var1 = $variation_adaptor->fetch_by_name('rs7681154');
 print scalar @{$var1->get_all_VariationFeatures}, "\n";
 my $vf1 = $var1->get_all_VariationFeatures->[0];
