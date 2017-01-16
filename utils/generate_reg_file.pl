@@ -26,7 +26,6 @@
 
 =cut
 
-
 use strict;
 use warnings;
 
@@ -38,12 +37,16 @@ my $config = {};
 GetOptions(
   $config,
   'release=i',
-  'db_file=s',
+  'server_file=s',
   'servers=s',
+  'help!',
 ) or die "Error: Failed to parse command line arguments\n";
 
+usage() if ($config->{help});
 
-die "Release number is required" unless ($config->{release});
+$config->{server_file} ||= '/nfs/production/panda/ensembl/variation/server_file';
+
+die "Release number is required (-release)" unless ($config->{release});
 my $release = $config->{release};
 
 
@@ -86,13 +89,13 @@ my $adaptors = {
 
 my $fmt = q{
 %s->new(
-  '-species'  => '%s',
-  '-group'    => '%s',
-  '-port'     => %d,
-  '-host'     => '%s',
-  '-user'     => '%s',
-  '-pass'     => '%s',
-  '-dbname'   => '%s',
+  '-species' => '%s',
+  '-group'   => '%s',
+  '-port'    => %d,
+  '-host'    => '%s',
+  '-user'    => '%s',
+  '-pass'    => '%s',
+  '-dbname'  => '%s',
 );
 };
 
@@ -112,7 +115,7 @@ print "\n";
 my $dbs;
 
 my $db_configs = {};
-my $fh = FileHandle->new($config->{db_file}, 'r');
+my $fh = FileHandle->new($config->{server_file}, 'r');
 while (<$fh>) {
   chomp;
   my ($alias, $config_line) = split/\s/;
@@ -123,7 +126,8 @@ while (<$fh>) {
   }
 }
 
-my @servers = split(',', $config->{servers});
+my @servers = keys %$db_configs; # set default to all servers from the server_file
+@servers = split(',', $config->{servers}) if ($config->{servers});
 
 my $group_abbrev_mappings = {
   'v' => 'variation',
@@ -193,4 +197,18 @@ for my $species (keys %$dbs) {
 # registry files have to return a true value nowadays
 
 print "\n1;\n";
+
+
+sub usage {
+
+  print qq{
+  Print registry file for the specified servers.
+  perl print_reg_file.pl -release 88 -serers staging,v1 > ensembl.registry
+  Options:
+    -help           Print this message
+    -server_file    Default file is  /nfs/production/panda/ensembl/variation/server_file
+    -servers        Comma-separated list of server short cuts e.g. v1,v2,staging,staging37,f1,f2. If not specified all servers from the server file are used
+  } . "\n";
+  exit(0);
+}
 
