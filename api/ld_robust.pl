@@ -15,7 +15,8 @@ my $species = 'homo_sapiens';
 my $vdba = $registry->get_DBAdaptor($species, 'variation');
 my $cdba = $registry->get_DBAdaptor($species, 'core');
 
-cmp_output();
+#cmp_output();
+run_script();
 
 sub cmp_output {
   # ld_log_results, ld_log_results_fast
@@ -59,7 +60,7 @@ my $variation_adaptor = $vdba->get_VariationAdaptor;
 my $ldfca = $vdba->get_LDFeatureContainerAdaptor;
 $ldfca->db->use_vcf(1);
 my $fh = FileHandle->new('ld_test_input', 'r');
-my $log = FileHandle->new('ld_log_results', 'w');
+my $log = FileHandle->new('ld_log_results_test', 'w');
 while (<$fh>) {
   chomp;
   my $variant_name = $_;
