@@ -3,15 +3,28 @@ use Bio::EnsEMBL::Registry;
 
 my $registry = 'Bio::EnsEMBL::Registry';
 
-my $file = '/lustre/scratch110/ensembl/at7/release_85/ensembl.registry';
+my $file = '/hps/nobackup/production/ensembl/anja/release_88/chicken/variation_consequence/ensembl.registry';
 
 $registry->load_all($file);
 #$registry->load_registry_from_db(-host => 'ensembldb.ensembl.org', -user => 'anonymous');
 
-my $vfa = $registry->get_adaptor('human', 'variation', 'variationfeature');
-my $sa = $registry->get_adaptor('human', 'core', 'slice');
-my $ta = $registry->get_adaptor('human', 'core', 'transcript');
 
+
+
+
+my $species = 'chicken';
+
+my $vfa = $registry->get_adaptor($species, 'variation', 'variationfeature');
+my $sa = $registry->get_adaptor($species, 'core', 'slice');
+my $ta = $registry->get_adaptor($species, 'core', 'transcript');
+
+my $gene_adaptor = $registry->get_adaptor($species, 'core', 'gene');
+
+
+my $gene = $gene_adaptor->fetch_by_stable_id('ENSGALG00000003365');
+print $gene->stable_id, "\n";
+
+=begin
 # get a slice for the new feature to be attached to
 my $slice = $sa->fetch_by_region('LRG', 'LRG_190');
 
@@ -39,3 +52,5 @@ foreach my $con(@{$new_vf->get_all_TranscriptVariations()}) {
       " in transcript ", $con->transcript->stable_id, "\n";
   }
 }
+=end
+=cut
