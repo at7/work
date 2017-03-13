@@ -18,20 +18,21 @@ my $species = 'homo_sapiens';
 
 my $slice_adaptor = $registry->get_adaptor($species, 'core', 'slice');
 
-my $fh = FileHandle->new('hapmap_input', 'w');
+my $fh = FileHandle->new('/hps/nobackup/production/ensembl/anja/hapmap/38/hapmap_input', 'w');
 
 foreach my $chrom (1..22, 'X', 'Y') {
-  my $vcf_file = ".vcf.gz";
+  my $vcf_file = "/hps/nobackup/production/ensembl/anja/hapmap/38/CSHL-HAPMAP-genotypes-GRCh38.vcf.gz";
   my $parser = Bio::EnsEMBL::IO::Parser::VCF4Tabix->open($vcf_file);
-
+  print STDERR $chrom, "\n";
   my $chrom_slice = $slice_adaptor->fetch_by_region('chromosome', $chrom);
   my $length = $chrom_slice->length;
-  foreach my $percent (0.25, 0.5, 0.75) {
+  foreach my $percent (0.1, 0.25, 0.3, 0.4,  0.5, 0.6, 0.75, 0.8, 0.9) {
     my $coord_start = ceil($length * $percent);
-    my $coord_end = $coord_start + 100;
+    my $coord_end = $coord_start + 100_000;
     $parser->seek($chrom, $coord_start, $coord_end);
     while ($parser->next) {
       my $ids = $parser->get_IDs->[0];
+      print STDERR "$ids\n";
       print $fh "$ids\n";
     }
   }
