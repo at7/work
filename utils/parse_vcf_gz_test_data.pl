@@ -4,8 +4,41 @@ use warnings;
 use FileHandle;
 use Bio::EnsEMBL::IO::Parser::VCF4Tabix;
 use Bio::EnsEMBL::IO::Parser::VCF4;
+use Bio::EnsEMBL::Registry;
+use POSIX;
 
+my $registry = 'Bio::EnsEMBL::Registry';
 
+$registry->load_registry_from_db(
+  -host => 'ensembldb.ensembl.org',
+  -user => 'anonymous',
+);
+
+my $species = 'homo_sapiens';
+
+my $slice_adaptor = $registry->get_adaptor($species, 'core', 'slice');
+
+my $fh = FileHandle->new('ld_test_input', 'w');
+
+foreach my $chrom (1..22, 'X', 'Y') {
+  my $vcf_file = "ftp://ftp.ensembl.org/pub/grch37/release-82/variation/vcf/homo_sapiens/1000GENOMES-phase_3-genotypes/ALL.chr$chrom.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.vcf.gz";
+  my $parser = Bio::EnsEMBL::IO::Parser::VCF4Tabix->open($vcf_file);
+
+  my $chrom_slice = $slice_adaptor->fetch_by_region('chromosome', $chrom);
+  my $length = $chrom_slice->length;
+  foreach my $percent (0.25, 0.5, 0.75) {
+    my $coord_start = ceil($length * $percent);
+    my $coord_end = $coord_start + 100;
+    $parser->seek($chrom, $coord_start, $coord_end);
+    while ($parser->next) {
+      my $ids = $parser->get_IDs->[0];
+      print $fh "$ids\n";
+    }
+  }
+  $parser->close;
+}
+$fh->close;
+=begin
 my $chrom = $ENV{'LSB_JOBINDEX'};
 
 if ($chrom == 23) {
@@ -15,18 +48,11 @@ if ($chrom == 24) {
   $chrom = 'Y';
 }
 
-
 #my $vcf_file = "ftp://ftp.ensembl.org/pub/variation_genotype/homo_sapiens/ALL.chr$chrom.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.GRCh38_dbSNP.vcf.gz";
 
-#my $vcf_file = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr$chrom\_GRCh38.genotypes.20170504.vcf.gz";
+my $vcf_file = "ftp://ftp.ensembl.org/pub/grch37/release-82/variation/vcf/homo_sapiens/1000GENOMES-phase_3-genotypes/ALL.chr$chrom.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.vcf.gz";
 
-my $vcf_file = "ftp://ftp.ensembl.org/pub/data_files/homo_sapiens/GRCh37/variation_genotype/ALL.chr$chrom.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.vcf.gz";
-
-#my $vcf_file = "ftp://ftp.ensembl.org/pub/grch37/release-82/variation/vcf/homo_sapiens/1000GENOMES-phase_3-genotypes/ALL.chr$chrom.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.vcf.gz";
-
-#my $fh_out = FileHandle->new("/lustre/scratch110/ensembl/at7/grch37/1000G_phase3_frequencies/$chrom.txt", 'w');
-
-my $fh_out = FileHandle->new("/hps/nobackup/production/ensembl/anja/1000G_phase3_frequencies_37_31_07_2017/$chrom.txt", 'w');
+my $fh_out = FileHandle->new("/lustre/scratch110/ensembl/at7/grch37/1000G_phase3_frequencies/$chrom.txt", 'w');
 
 my $parser = Bio::EnsEMBL::IO::Parser::VCF4Tabix->open($vcf_file);
 $parser->seek($chrom, 1);
@@ -110,4 +136,5 @@ while ($parser->next) {
 $parser->close();
 $fh_out->close();
 
-
+=end
+=cut
