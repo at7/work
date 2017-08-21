@@ -14,15 +14,15 @@ $registry->load_registry_from_db(
 #  -db_version => 88,
 );
 
-my $registry_file = 'ensembl.registry';
+#my $registry_file = 'ensembl.registry';
 my $species = 'human';
 
-$registry->load_all($registry_file);
+#$registry->load_all($registry_file);
 
 my $vdba = $registry->get_DBAdaptor($species, 'variation');
 my $cdba = $registry->get_DBAdaptor($species, 'core');
 
-my $dir = '/Users/anja/Documents/development/ld_tests/old_code/';
+my $dir = '/hps/nobackup/production/ensembl/anja/release_89/ld/new_code/';
 
 my $population_adaptor = $vdba->get_PopulationAdaptor;
 my $population = $population_adaptor->fetch_by_name("1000GENOMES:phase_3:CEU");
@@ -40,6 +40,7 @@ my $populations = {
 
 my $pairwise = 0;
 
+if ($pairwise) {
 my @pairs = ('rs1925840_rs978750', 'rs34427641_rs61952472', 'rs10937411_rs16864809');
 
 
@@ -70,7 +71,7 @@ foreach my $pair (@pairs) {
 
 }
 
-
+}
 
 
 my $by_region = 0;
@@ -108,10 +109,15 @@ if ($by_region) {
 
 my $by_variant = 1;
 if ($by_variant) {
-foreach my $window (100, 200, 500, 1000) {
+#foreach my $window (100, 200, 500, 1000) {
+foreach my $window (200) {
+
+
   $ldFeatureContainerAdaptor->max_snp_distance(($window / 2) * 1000);
 
-  foreach my $name (qw/rs10937411 rs7349069 rs11585711/) {
+#  foreach my $name (qw/rs10937411 rs7349069 rs11585711/) {
+  foreach my $name (qw/rs10937411/) {
+
     my $fh = FileHandle->new("$dir/$name\_$window.txt", 'w');
     my $variation = $variation_adaptor->fetch_by_name($name);
     my $vf = $variation->get_all_VariationFeatures()->[0];
