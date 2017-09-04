@@ -5,14 +5,13 @@ use Bio::EnsEMBL::Registry;
 use Bio::EnsEMBL::Utils::Slice qw(split_Slices);
 use FileHandle;
 
-
 my $registry = 'Bio::EnsEMBL::Registry';
 
-my $file = '/hps/nobackup/production/ensembl/anja/release_90/ensembl.registry.sheep';
+my $file = '/hps/nobackup/production/ensembl/anja/release_90/ensembl.registry.90';
 
 $registry->load_all($file);
 
-my $species = 'sheep';
+my $species = 'pig';
 
 my $vfa = $registry->get_adaptor($species, 'variation', 'variationfeature');
 my $vdba = $registry->get_DBAdaptor($species, 'variation');
@@ -22,20 +21,25 @@ my $dbh = $vdba->dbc->db_handle;
 
 my $toplevel_slices = $sa->fetch_all('chromosome');
 my $seq_region_ids = {};
+my $seq_region_names = {};
 my $vf_counts = {};
 
-
 foreach my $toplevel_slice (@$toplevel_slices) {
-  
   $seq_region_ids->{$toplevel_slice->get_seq_region_id} = $toplevel_slice->seq_region_name;
   my $seq_region_id = $toplevel_slice->get_seq_region_id;
   my $seq_region_name = $toplevel_slice->seq_region_name;
+  $seq_region_names->{$seq_region_name} = $seq_region_id;
   my $sth = $dbh->prepare(qq/select count(*) from variation_feature where seq_region_id=$seq_region_id and display = 1;/);
   $sth->execute() or die $sth->errstr;
   my $count = $sth->fetchrow_arrayref->[0];
   $vf_counts->{$seq_region_name} = $count;
   $sth->finish;
 }
+
+foreach my $seq_region_name (sort {$vf_counts->{$a} <=> $vf_counts->{$b}} keys %$vf_counts) {
+  print STDERR $seq_region_name, ' ', $vf_counts->{$seq_region_name}, ' ', $seq_region_names->{$seq_region_name}, "\n";
+}
+
 
 =begin
 foreach my $toplevel_slice (@$toplevel_slices) {
@@ -50,8 +54,6 @@ foreach my $toplevel_slice (@$toplevel_slices) {
   }
   $sth->finish;
 }
-=end
-=cut
 
 my @split_sizes = (1e3, 1e4, 1e6);
 
@@ -113,3 +115,5 @@ foreach my $seq_region_id (keys %$seq_region_ids) {
 #    $fh->close();
   }
 }
+=end
+=cut
