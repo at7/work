@@ -1,0 +1,24 @@
+./plink --bed plink.bed --bim plink.bim --fam plink.fam --keep-fam keep --ld rs726830 rs71546548
+
+./plink --r2 dprime yes-really --bed plink.bed --bim plink.bim --fam plink.fam --keep-fam keep --from-bp 26547595 --to-bp 27548492 --chr 6 --ld-window 21888 --ld-window-r2 0.0
+
+./plink --bed plink.bed --bim plink.bim --fam plink.fam --keep-fam keep --ld rs112282391 rs6910838 --from-bp 26547595 --to-bp 27548492 --chr 6 --ld-window 21888 --ld-window-r2 0.0
+
+./plink --vcf ALL.chr6_GRCh38.genotypes.20170504.vcf.gz --double-id  --list-duplicate-vars ids-only --vcf-half-call h --biallelic-only strict
+
+
+
+
+./plink --r2 dprime  --bed plink.bed --bim plink.bim --fam plink.fam --keep-fam keep 
+
+
+--biallelic-only <strict>
+
+--list-duplicate-vars ids-only
+
+
+./plink --vcf ALL.chr6_GRCh38.genotypes.20170504.vcf.gz  --double-id  --vcf-half-call h --biallelic-only strict
+
+
+./plink --r2 dprime --bed plink.bed --bim plink.bim --fam plink.fam --keep-fam keep
+
