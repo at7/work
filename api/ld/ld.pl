@@ -38,29 +38,48 @@ my $variation_adaptor = $vdba->get_VariationAdaptor;
 my $slice_adaptor = $cdba->get_SliceAdaptor;
 $variation_adaptor->db->use_vcf(1);
 
+my $population = $population_adaptor->fetch_by_name('1000GENOMES:phase_3:GBR');
+
 my $test_data = {
   variants => [''],
   populations => [],
 
 };
 
-# split chromosome into 1MB slices and compute LD for each region
+print_use_case_cmds();
 
-my $max_split_slice_length = 1_000_000;
-my $overlap = 500_000;
-
-my $slice = $slice_adaptor->fetch_by_region('chromosome', 6);
-my $slice_pieces = split_Slices([$slice], $max_split_slice_length, $overlap);
-
-my $population = $population_adaptor->fetch_by_name('1000GENOMES:phase_3:GBR');
-
-foreach my $slice_piece (@$slice_pieces) {
-  my $chr = $slice_piece->seq_region_name;
-  my $start = $slice_piece->seq_region_start;
-  my $end = $slice_piece->seq_region_end;  
+sub print_use_case_cmds {
+  # region
+  my $slice = $slice_adaptor->fetch_by_region('chromosome', 6, 26547595, 28548492);
   my $ldFeatureContainerAdaptor = $vdba->get_LDFeatureContainerAdaptor;
-  my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice_piece, $population);
-  print_container_content($ldFeatureContainer, "/hps/nobackup/production/ensembl/anja/ld/GBR_$chr\_$start\_$end.txt");
+#  my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice, $population);
+
+  my $v1 = $variation_adaptor->fetch_by_name('rs726830');
+  my $vf1 = $v1->get_all_VariationFeatures->[0];
+  my $v2 = $variation_adaptor->fetch_by_name('rs71546548');
+  my $vf2 = $v2->get_all_VariationFeatures->[0];
+  $ldFeatureContainerAdaptor->fetch_by_VariationFeatures([$vf1, $vf2], $population);
+
+
+
+}
+
+# split chromosome into 1MB slices and compute LD for each region
+sub comput_ld_chromosome {
+  my $max_split_slice_length = 1_000_000;
+  my $overlap = 500_000;
+
+  my $slice = $slice_adaptor->fetch_by_region('chromosome', 6);
+  my $slice_pieces = split_Slices([$slice], $max_split_slice_length, $overlap);
+
+  foreach my $slice_piece (@$slice_pieces) {
+    my $chr = $slice_piece->seq_region_name;
+    my $start = $slice_piece->seq_region_start;
+    my $end = $slice_piece->seq_region_end;  
+    my $ldFeatureContainerAdaptor = $vdba->get_LDFeatureContainerAdaptor;
+    my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice_piece, $population);
+    print_container_content($ldFeatureContainer, "/hps/nobackup/production/ensembl/anja/ld/GBR_$chr\_$start\_$end.txt");
+  }
 }
 
 sub print_container_content {
