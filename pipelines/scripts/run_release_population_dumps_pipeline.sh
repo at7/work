@@ -1,14 +1,16 @@
-pipeline_dir=/hps/nobackup/production/ensembl/anja/release_90/dumps_human_37/population/
+ENS_VERSION=91
+HIVE_SRV=mysql-ens-var-prod-1-ensadmin
+BASE_DIR=${HOME}/bin
+DUMP_DIR=/hps/nobackup/production/ensembl/${USER}/release_${ENS_VERSION}/dumps_human/population/
 init_pipeline.pl Bio::EnsEMBL::Variation::Pipeline::ReleaseDataDumps::PopulationDumps_conf \
--pipeline_dir ${pipeline_dir} \
--pipeline_name population_dumps_90_37 \
--hive_db_host mysql-ens-var-prod-2.ebi.ac.uk \
--hive_db_password  \
--hive_db_port  \
--hive_db_user  \
--registry_file ${pipeline_dir}ensembl.registry \
--ensembl_release 90 \
--tmp_dir ${pipeline_dir}/tmp \
--prefetched_frequencies /hps/nobackup/production/ensembl/anja/allele_frequencies/ \
--gvf_validator /homes/anja/bin/GAL/bin/gvf_validator \
--so_file /homes/anja/bin/SO-Ontologies/so.obo \
+    $($HIVE_SRV details hive) \
+    -ensembl_cvs_root_dir $BASE_DIR \
+    -hive_root_dir ${BASE_DIR}/ensembl-hive \
+    -registry_file ${DUMP_DIR}/ensembl.registry \
+    -pipeline_dir $DUMP_DIR \
+    -tmp_dir ${DUMP_DIR}/tmp_dir \
+    -pipeline_name population_dumps_${ENS_VERSION} \
+    -ensembl_release ${ENS_VERSION} \
+    -hive_force_init 1 \
+    -prefetched_frequencies /hps/nobackup/production/ensembl/anja/allele_frequencies/ \
+    -species homo_sapiens \
