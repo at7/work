@@ -7,8 +7,8 @@ use Bio::EnsEMBL::Registry;
 
 my $registry = 'Bio::EnsEMBL::Registry';
 
-my $data_dump_dir = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human_37/';
-my $registry_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human_37/ensembl.registry';
+my $data_dump_dir = '/hps/nobackup/production/ensembl/anja/release_91/dumps_human/';
+my $registry_file = '/hps/nobackup/production/ensembl/anja/release_91/dumps_human/ensembl.registry';
 #my $registry_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human/ensembl.registry';
 
 
@@ -18,9 +18,9 @@ my $vdbas = $registry->get_all_DBAdaptors(-group => 'variation');
 my $all_species = {};
 foreach my $vdba (@$vdbas) {
   my $species_name = lc $vdba->species();
+  next unless ($species_name eq 'homo_sapiens');
   $all_species->{$species_name} = 1;
 }
-
 #tabix_vcf_files($data_dump_dir, $all_species);
 compute_checksums($data_dump_dir, $all_species);
 

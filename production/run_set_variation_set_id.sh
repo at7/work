@@ -1,5 +1,5 @@
-registry=/hps/nobackup/production/ensembl/anja/release_90/pig/ensembl.registry
-species=pig
+registry=/hps/nobackup/production/ensembl/anja/release_91/mouse/ensembl.registry
+species=mouse
 bsub -J variation_set \
 -o variation_set.out \
 -e variation_set.err \
