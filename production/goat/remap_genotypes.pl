@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+# bsub5G -J cmp_gt -o cmp_gt.out -e /hps/nobackup/production/ensembl/anja/release_92/goat/test_run.err perl remap_genotypes.pl
+
 use FileHandle;
 use Bio::EnsEMBL::IO::Parser::VCF4Tabix;
 use Bio::EnsEMBL::IO::Parser::VCF4;
@@ -14,6 +16,10 @@ my $dbh = $registry->get_DBAdaptor('goat', 'variation')->dbc->db_handle;
 
 # new VCF line
 # #CHROM POS ID REF ALT QUAL FILTER INFO FORMAT genotypes
+
+
+my $fh_out = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_92/goat/MOCH.chrom1.new_assembly', 'w');
+my $fh_no_mapping = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_92/goat/MOCH.chrom1.no_mapping', 'w');
 
 my $vcf_file = '/hps/nobackup/production/ensembl/anja/release_92/goat/MOCH.genus_snps.CHIR1_0.20140928.vcf.gz';
 my $parser = Bio::EnsEMBL::IO::Parser::VCF4Tabix->open($vcf_file);
@@ -36,7 +42,8 @@ foreach my $chrom (@chroms) {
       my @IDs = split(',', $raw_IDs);
       my $qual = $parser->get_raw_score;
       my $filter = $parser->get_raw_filter_results;
-      my $info = $parser->get_raw_info; # AC=3;AF=0.00931677;AN=322;NS=161
+      my $info = 'has been removed';
+#      my $info = $parser->get_raw_info; # AC=3;AF=0.00931677;AN=322;NS=161
 ##INFO=<ID=AC,Number=A,Type=Integer,Description="Total number of alternate alleles in called genotypes">
 ###INFO=<ID=AF,Number=A,Type=Float,Description="Estimated Allele Frequencies">
 ###INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
@@ -50,34 +57,38 @@ foreach my $chrom (@chroms) {
       my $id_mappings = get_mappings($raw_IDs);
       my $variation_id_mappings = $id_mappings->{mappings};
       my @no_mappings = @{$id_mappings->{no_mappings}};
-      my $ids_with_mappings;
+      my $ids_with_mappings = $id_mappings->{ids_with_mappings};
      
       my $sample_genotypes = $parser->get_samples_genotypes;
       my $samples = $parser->get_samples;
  
       if (scalar keys %$variation_id_mappings == 0) {
-        print STDERR "No mappings for $raw_IDs\n";
+        print $fh_no_mapping "No mappings for $raw_IDs\n";
       } elsif (scalar keys %$variation_id_mappings > 1 ) {
         # need to merge new alleles but keep reference the same!
+        print STDERR "More than 1 mapping for $raw_IDs\n";
       } 
         elsif (scalar keys %$variation_id_mappings == 1) {
         foreach my $variation_id (keys %$variation_id_mappings) {
           foreach my $new_location (keys %{$variation_id_mappings->{$variation_id}}) {
             my $new_allele_string = $variation_id_mappings->{$variation_id}->{$new_location};
             my $cmp_result = compare_genotypes($allele_string, $new_allele_string);
-
+            # if cmp_result == 6 check that all alleles are actually used!!!!!!! and compute again
+            #
             #CHROM POS ID REF ALT QUAL FILTER INFO FORMAT genotypes
             if ( $cmp_result == 1 || $cmp_result == 2 || $cmp_result == 4) {
               my $old_allele_map = get_allele_map($allele_string); 
               my $new_allele_map = get_allele_map($new_allele_string);
               my $mapped_sample_genotypes = map_sample_genotypes($sample_genotypes, $old_allele_map, $new_allele_map);
               my $vcf_line = get_vcf_line($new_location, $ids_with_mappings, $new_allele_string, $qual, $filter, $info, $format, $samples, $mapped_sample_genotypes);
+              print $fh_out "$vcf_line\n";            
             } elsif ($cmp_result == 3 || $cmp_result == 5) {
               my $old_allele_map = get_allele_map($allele_string); 
               my $old_rev_comp_map = get_rev_comp_allele_map($allele_string);
               my $new_allele_map = get_allele_map($new_allele_string);
               my $mapped_sample_genotypes = map_sample_genotypes($sample_genotypes, $old_allele_map, $new_allele_map, $old_rev_comp_map);
               my $vcf_line = get_vcf_line($new_location, $ids_with_mappings, $new_allele_string, $qual, $filter, $info, $format, $samples, $mapped_sample_genotypes);
+              print $fh_out "$vcf_line\n";            
             } else {
               print STDERR "$raw_IDs $allele_string $new_allele_string $cmp_result\n"
             }
@@ -85,6 +96,8 @@ foreach my $chrom (@chroms) {
         }
       }
     }
+    $fh_out->close;
+    $fh_no_mapping->close;
     die;
   }  
 }
@@ -93,20 +106,30 @@ sub get_vcf_line {
   my ($new_location, $ids_with_mappings, $new_allele_string, $qual, $filter, $info, $format, $samples, $mapped_sample_genotypes) = @_;
   my ($chrom, $pos) = split(':', $new_location);
   my @alleles = split('/', $new_allele_string);
+  my @default_alleles = ();
+  foreach my $allele (@alleles) {
+    push @default_alleles, '.';
+  }
+  my $default_gt = join('/', @default_alleles);
+
   my $ref_allele = shift @alleles;
   my $alt_alleles = join(',', @alleles);
   my @genotypes = ();
+
   foreach my $sample (@$samples) {
-    push @genotypes, $mapped_sample_genotypes->{$sample};
+    my $gt = $mapped_sample_genotypes->{$sample};
+    if (! defined $gt) {
+      push @genotypes, $default_gt;
+      # deal with ./. genotypes!
+#      print STDERR "no gt for $sample $chrom $pos $ids_with_mappings\n";
+    } else {
+      push @genotypes, $mapped_sample_genotypes->{$sample};
+    }
   }
-
   #CHROM POS ID REF ALT QUAL FILTER INFO FORMAT genotypes
-  my $line = join("\t", $chrom, $pos, $ids_with_mappings, $ref, $alt, $qual, $filter, $info, $format, @genotypes);
-
-
+  my $line = join("\t", $chrom, $pos, $ids_with_mappings, $ref_allele, $alt_alleles, $qual, $filter, $info, $format, @genotypes);
+  return $line;
 }
-
-
 
 sub map_sample_genotypes {
   my $sample_genotypes_old = shift;
@@ -119,18 +142,24 @@ sub map_sample_genotypes {
   }
   my $sample_genotypes_new = {};
   foreach my $sample (keys %$sample_genotypes_old) {
-    my @alleles = split('\|', $sample_genotypes_old->{$sample}); 
-    my @new_gt = ();    
-    foreach my $allele (@alleles) {
-      if ($rev_comp) {
-        push @new_gt, $new_allele_map->{$old_rev_comp_map->{$allele}};
-      } else {
-        push @new_gt, $new_allele_map->{$allele};
+    # if ./. ...
+    my $old_gt =  $sample_genotypes_old->{$sample};
+    if ($old_gt =~ /\./) {
+      $sample_genotypes_new->{$sample} = $old_gt;
+    } else {
+      my @alleles = split('\|', $old_gt);
+      my @new_gt = ();    
+      foreach my $allele (@alleles) {
+        if ($rev_comp) {
+          push @new_gt, $new_allele_map->{$old_rev_comp_map->{$allele}};
+        } else {
+          push @new_gt, $new_allele_map->{$allele};
+        }
       }
+      $sample_genotypes_new->{$sample} = join('|', @new_gt);
     }
-    $sample_genotypes_new->{$sample} = join('/', @new_gt);
   }
-  return $sample_genotype_new;
+  return $sample_genotypes_new;
 }
 
 sub get_allele_map {
@@ -203,8 +232,10 @@ sub get_mappings {
   my @ids = split(',', $raw_IDs);
   my $variation_ids = {};
   my @no_variation_id_mappings = ();
+  my @ids_with_mappings = ();
   foreach my $id (@ids) {
     if ($mappings->{$id}) {
+      push @ids_with_mappings, $id;
       foreach my $variation_id (keys %{$mappings->{$id}}) {
         foreach my $location (keys %{$mappings->{$id}->{$variation_id}}) {
           $variation_ids->{$variation_id}->{$location} = $mappings->{$id}->{$variation_id}->{$location};
@@ -214,7 +245,7 @@ sub get_mappings {
       push @no_variation_id_mappings, $id;
     }
   }
-  return {no_mappings => \@no_variation_id_mappings, mappings => $variation_ids};
+  return {no_mappings => \@no_variation_id_mappings, mappings => $variation_ids, ids_with_mappings => join(',', @ids_with_mappings)};
 }
 
 
