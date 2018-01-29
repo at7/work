@@ -28,12 +28,72 @@ my $files = {
 };
 
 
-&overlap_matrix;
+&map_to_variation_id;
+sub map_to_variation_id {
+
+  my $mappings = {};
+
+  my $fh = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_92/goat/ssid_2_variant_id', 'r');
+  while (<$fh>) {
+    chomp;
+    my ($variation_id, $ss_id) = split/\t/;
+    $mappings->{$ss_id}->{$variation_id} = 1;
+  }
+  $fh->close;
+
+  foreach my $population (keys %$files) {
+    my $file_type = 'genus';
+    my $file = $files->{$population}->{$file_type};
+    next if (!$file);
+    my $fh = FileHandle->new("$data_dir/$population\_no_variation_id_mapping_$file_type.txt", 'w');
+    my $vcf_file = "$data_dir/$file";
+    my $parser = Bio::EnsEMBL::IO::Parser::VCF4Tabix->open($vcf_file);
+    while ($parser->next) {
+      my @IDs = split(',', $parser->get_raw_IDs);
+      my $found_variation_id = 0;
+      foreach my $id (@IDs) {
+        if ($mappings->{$id}) {
+          $found_variation_id = 1;
+        }
+      }
+      if (!$found_variation_id) {
+        print $fh join(',', @IDs), "\n";
+      }
+    }
+    $fh->close;
+  }
+}
+
+sub load_variants_and_gts {
+  my $variants = {};
+  foreach my $population (keys %$files) {
+    my $file = $files->{$population}->{'genus'};
+    my $fh = FileHandle->new("$data_dir/$population\_all_GTs_genus.txt", 'r');
+    while (<$fh>) {
+      chomp;
+      #ss1235151892    1       99999786        A/G     G|G:0.8000      G|A:0.2000
+      my @values = split/\t/;      
+      my $id = $values[0];
+      my $allele_string = $values[3];
+      $variants->{$id}->{$allele_string} = 1;
+    }
+    $fh->close;
+  }
+
+  my $fh = FileHandle->new("$data_dir/load_ids_gts_old_assembly", 'w');
+
+  foreach my $id (keys %$variants) {
+    my @gts = keys %{$variants->{$id}};
+    if (scalar @gts > 1) {
+      print STDERR "$id ", join(' ', @gts), "\n";
+    } else {
+      print $fh "$id\t", $gts[0], "\n";
+    }
+  }  
+} 
 
 sub overlap_matrix {
-
   my @sets = qw/AUCH AUFR ITCH IRCH MOCH/; 
-
   my $variants = {};
   foreach my $population (keys %$files) {
     my $file = $files->{$population}->{'genus'};

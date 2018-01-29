@@ -73,6 +73,31 @@ foreach my $chrom (@chroms) {
           foreach my $new_location (keys %{$variation_id_mappings->{$variation_id}}) {
             my $new_allele_string = $variation_id_mappings->{$variation_id}->{$new_location};
             my $cmp_result = compare_genotypes($allele_string, $new_allele_string);
+            if ($cmp_result == 6) {
+              # reduce allele_string?
+              # if cmp_result == 6 check that all alleles are actually used!!!!!!! and compute again
+              my $reduced_allele_string = reduce_allele_string($allele_string, $sample_genotypes);
+
+              # allele_string could be reduced because of unused alleles
+              # check if new allele string is contained in old allele string rev comp or not
+              #  C/A/T C/T -> add A to allele string
+
+              if ($reduced_allele_string ne $allele_string) {
+                $allele_string = $reduced_allele_string;
+                # compute again
+                $cmp_result = compare_genotypes($allele_string, $new_allele_string);
+              }  else {
+                # no change
+                my $updated_new_allele_string = containes_new_allele_string($allele_string, $new_allele_string);
+                if ($updated_new_allele_string ne $new_allele_string) {
+                  $new_allele_string = $updated_new_allele_string;
+                  $cmp_result = compare_genotypes($allele_string, $new_allele_string);
+                } else {
+                  print STDERR "$raw_IDs $allele_string $new_allele_string $cmp_result\n"
+                }
+              } 
+            }
+
             # if cmp_result == 6 check that all alleles are actually used!!!!!!! and compute again
             #
             #CHROM POS ID REF ALT QUAL FILTER INFO FORMAT genotypes
@@ -129,6 +154,58 @@ sub get_vcf_line {
   #CHROM POS ID REF ALT QUAL FILTER INFO FORMAT genotypes
   my $line = join("\t", $chrom, $pos, $ids_with_mappings, $ref_allele, $alt_alleles, $qual, $filter, $info, $format, @genotypes);
   return $line;
+}
+
+sub containes_new_allele_string {
+  my $allele_string = shift;
+  my $new_allele_string = shift; 
+  my @alleles = split('/', $allele_string); 
+  my @new_alleles = split('/', $new_allele_string);
+  my @not_in_alleles = array_minus(@new_alleles, @alleles);
+  if (scalar @not_in_alleles > 0) {
+    # try rev comp
+    my @rev_comp_new_alleles =  split('/', $new_allele_string);
+    foreach my $allele (@rev_comp_new_alleles) {
+      reverse_comp(\$allele);
+    }
+    @not_in_alleles = array_minus(@rev_comp_new_alleles, @alleles);
+    if (scalar @not_in_alleles > 0 ) {
+      return $new_allele_string;    
+    } else {
+      return add_alleles(\@alleles, \@rev_comp_new_alleles);  
+    }
+  } else {
+    return add_alleles(\@alleles, \@new_alleles);  
+  }
+}
+
+sub add_alleles {
+  my $from_alleles = shift;
+  my $to_alleles = shift;
+  # get items from array @a that are not in array @b
+  my @not_in_to_alleles = array_minus(@$from_alleles, @$to_alleles);
+  foreach my $allele (@not_in_to_alleles) {
+    push @$to_alleles, $allele;
+  }
+  return join('/', @$to_alleles);
+}
+
+sub reduce_allele_string {
+  my $allele_string = shift;
+  my $sample_genotypes = shift;
+  my $map = {};
+  foreach my $sample (keys %$sample_genotypes) {
+    foreach my $allele (split('\|', $sample_genotypes->{$sample})) {
+      $map->{$allele} = 1;
+    }
+  }
+  my @reduced_allele_string = ();
+  foreach my $allele (split('/', $allele_string)) {
+    if ($map->{$allele}) {
+      push @reduced_allele_string, $allele;
+    }
+  }
+  return join('/', @reduced_allele_string);
 }
 
 sub map_sample_genotypes {
