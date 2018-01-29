@@ -1,0 +1,1 @@
+perl /homes/anja/bin/ensembl-variation/tools/linkage_disequilibrium/ld_tool -calculation region -input_file /hps/nobackup/production/ensembl/anja/release_92/ld_tool/region_input_file --population 1000GENOMES:phase_3:CEU \
