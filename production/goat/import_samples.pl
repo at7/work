@@ -14,25 +14,52 @@ my $population_adaptor = $registry->get_adaptor($species, 'variation', 'populati
 
 
 my $populations = {
-  AUCH => {country => 'Australia' , size => 5},
-  FRCH => {country => 'France', size => 4},
-  IRCH => {country => 'Iran', size => 20},
-  ITCH => {country => 'Italy', size => 5},
-  MOCH => {country => 'Morocco', size => 161},
+  AUCH => {country => 'Australia' , size => 5, dbID => 35},
+  FRCH => {country => 'France', size => 4, dbID => 34},
+  IRCH => {country => 'Iran', size => 20, dbID => 37},
+  ITCH => {country => 'Italy', size => 5, dbID => 36},
+  MOCH => {country => 'Morocco', size => 161, dbID => 33 },
 };
-foreach my $population_name (keys %$populations) {
-  my $country = $populations->{$population_name}->{country};
-  my $size = $populations->{$population_name}->{size};
 
-  my $population = Bio::EnsEMBL::Variation::Population->new(
-        -name     => "NextGeb:$population_name",
-        -adaptor  => $population_adaptor,
-        -size     => $size,
-        -description => "Population from the NextGen project. Country:$country",
-      );
-  $population_adaptor->store($population);
+
+import_sample_populations();
+
+sub import_sample_populations {
+
+  foreach my $population (keys %$populations) {
+    my $dbID = $populations->{$population}->{dbID};
+    my @sample_ids = ();
+    my $sth = $dbh->prepare(qq{
+      SELECT sample_id, name FROM sample WHERE name like '%NextGen:$population%';
+    }, {mysql_use_result => 1});
+    $sth->execute();
+    my ($sample_id, $name);
+    $sth->bind_columns(\($sample_id, $name));
+    while ($sth->fetch) {
+      push @sample_ids, $sample_id;
+    }
+    $sth->finish;
+    foreach my $sample_id (@sample_ids) {
+      $dbh->do("Insert into sample_population(sample_id, population_id) values($sample_id, $dbID)") or die $dbh->errstr;
+    }
+  }
+
 }
 
+sub import_populations {
+  foreach my $population_name (keys %$populations) {
+    my $country = $populations->{$population_name}->{country};
+    my $size = $populations->{$population_name}->{size};
+
+    my $population = Bio::EnsEMBL::Variation::Population->new(
+          -name     => "NextGeb:$population_name",
+          -adaptor  => $population_adaptor,
+          -size     => $size,
+          -description => "Population from the NextGen project. Country:$country",
+        );
+    $population_adaptor->store($population);
+  }
+}
 
 sub import_samples {
 my $fh = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_92/goat/AUCH/h', 'r');
