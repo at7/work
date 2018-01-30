@@ -31,6 +31,8 @@ package JoinRemapping;
 
 use base ('Bio::EnsEMBL::Hive::Process');
 
+use strict;
+use warnings;
 use FileHandle;
 
 sub run {
@@ -39,6 +41,11 @@ sub run {
   my $pipeline_dir = $self->param('pipeline_dir');
 
   my $vcf_file = "$pipeline_dir/$population.vcf";
+
+  if (-e $vcf_file) {
+    $self->run_system_command("rm $vcf_file");
+  }
+
   my $header = "$pipeline_dir/h";
 
  $self->run_system_command(
@@ -67,9 +74,10 @@ sub run {
     );
   }
 
- $self->run_system_command("vcf-sort < $pipeline_dir/$vcf_file | bgzip > $pipline_dir/$vcf_file.gz");
 
- $self->run_system_command("tabix -vcf $pipeline_dir/$vcf_file.gz");
+ $self->run_system_command("vcf-sort < $vcf_file | bgzip > $vcf_file.gz");
+
+ $self->run_system_command("tabix $vcf_file.gz");
 
 }
 
