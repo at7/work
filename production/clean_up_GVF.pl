@@ -4,11 +4,12 @@ use warnings;
 use FileHandle;
 use Compress::Zlib;
 
-my $gvf_file  = '/hps/nobackup/production/ensembl/anja/release_90/dumps_90/gvf/homo_sapiens/Homo_sapiens.gvf.gz';
+my $gvf_file  = '/hps/nobackup/production/ensembl/anja/release_92/dumps/grch37/gvf/homo_sapiens_phenotype_associated.gvf.gz';
 my $fh_in = gzopen($gvf_file, "rb") or die "Error reading $gvf_file: $gzerrno\n";
-my $fh_out = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_90/dumps_90/Homo_sapiens.gvf', 'w');
+my $fh_out = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_92/dumps/grch37/gvf/homo_sapiens/homo_sapiens_phenotype_associated.gvf', 'w');
 
 while ($fh_in->gzreadline($_) > 0) {
+  chomp;
   if (/^#/) {
     print $fh_out $_, "\n";
   } else {

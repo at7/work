@@ -7,9 +7,10 @@ use Compress::Zlib;
 #my $fh_in = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_90/dumps_human/vcf/homo_sapiens/Homo_sapiens.vcf.gz', 'r');
 #my $vcf_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human/vcf/homo_sapiens/Homo_sapiens.vcf.gz';
 
-my $vcf_file = '/hps/nobackup/production/ensembl/anja/release_91/dumps_human/vcf/homo_sapiens/homo_sapiens.vcf.gz';
+#my $vcf_file = '/hps/nobackup/production/ensembl/anja/release_92/human/grch37/vcf2/homo_sapiens/homo_sapiens.vcf.gz';
+my $vcf_file = '/hps/nobackup/production/ensembl/anja/release_92/dumps/grch38/vcf/homo_sapiens/homo_sapiens.vcf.gz';
 
-my $fh_out = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_91/dumps_human/vcf/homo_sapiens/1000GENOMES-phase_3.vcf', 'w');
+my $fh_out = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_92/dumps/grch38/vcf/homo_sapiens/1000GENOMES-phase_3.vcf', 'w');
 my $fh_in = gzopen($vcf_file, "rb") or die "Error reading $vcf_file: $gzerrno\n";
 
 my $frequencies_chrom = {};

@@ -7,20 +7,24 @@ use Bio::EnsEMBL::Registry;
 
 my $registry = 'Bio::EnsEMBL::Registry';
 
-my $data_dump_dir = '/hps/nobackup/production/ensembl/anja/release_91/dumps_human/';
-my $registry_file = '/hps/nobackup/production/ensembl/anja/release_91/dumps_human/ensembl.registry';
+#my $data_dump_dir = '/hps/nobackup/production/ensembl/anja/release_92/dumps/grch38/';
+my $data_dump_dir = '/hps/nobackup/production/ensembl/anja/release_92/dumps/';
+
+my $registry_file = '/hps/nobackup/production/ensembl/anja/release_92/dumps/grch38/ensembl.registry';
 #my $registry_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human/ensembl.registry';
 
 
-$registry->load_all($registry_file);
-my $vdbas = $registry->get_all_DBAdaptors(-group => 'variation');
+#$registry->load_all($registry_file);
+#my $vdbas = $registry->get_all_DBAdaptors(-group => 'variation');
 
 my $all_species = {};
-foreach my $vdba (@$vdbas) {
-  my $species_name = lc $vdba->species();
-  next unless ($species_name eq 'homo_sapiens');
-  $all_species->{$species_name} = 1;
-}
+$all_species->{'saccharomyces_cerevisiae'} = 1;
+$all_species->{'drosophila_melanogaster'} = 1;
+#foreach my $vdba (@$vdbas) {
+#  my $species_name = lc $vdba->species();
+#  next unless ($species_name eq 'homo_sapiens');
+#  $all_species->{$species_name} = 1;
+#}
 #tabix_vcf_files($data_dump_dir, $all_species);
 compute_checksums($data_dump_dir, $all_species);
 
@@ -59,8 +63,8 @@ sub tabix_vcf_files {
 
 sub compute_checksums {
   my ($data_dir, $all_species) = @_;
-#  foreach my $file_type (qw/vcf gvf/) {
-  foreach my $file_type (qw/gvf/) {
+  foreach my $file_type (qw/vcf gvf/) {
+#  foreach my $file_type (qw/vcf/) {
 
     foreach my $species (keys %$all_species) {
       print STDERR $species, "\n";
