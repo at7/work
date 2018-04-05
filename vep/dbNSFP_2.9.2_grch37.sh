@@ -1,13 +1,13 @@
 working_dir=/hps/nobackup/production/ensembl/anja/
-bsub -q production-rh7 -M 5000 -R "rusage[mem=5000]" -J vep -o $working_dir/vep_data/dbnsfp_3.5_grch37.out -e $working_dir/vep_data/dbnsfp_3.5_grch37.err \
+bsub -q production-rh7 -M 5000 -R "rusage[mem=5000]" -J vep -o $working_dir/vep_data/dbnsfp_2.9_grch37.out -e $working_dir/vep_data/dbnsfp_2.9_grch37.err \
 perl $HOME/bin/ensembl-vep/vep \
 -i $working_dir/vep_data/input/grch37/Homo_sapiens_clinically_associated.vcf.gz  \
--o $working_dir/vep_data/output/dbnsfp_3.5_grch37.txt \
+-o $working_dir/vep_data/output/dbnsfp_2.9_grch37.txt \
 --port 3337 \
 --cache \
 --dir_cache /hps/nobackup/production/ensembl/anja/vep/ \
 --dir_plugins /homes/anja/bin/VEP_plugins/ \
---plugin dbNSFP,/hps/nobackup/production/ensembl/anja/vep_data/dbNSFP/dbNSFP_hg19.gz,LRT_pred,MutationTaster_pred,MutationAssessor_pred,FATHMM_pred \
+--plugin dbNSFP,/nfs/production/panda/ensembl/variation/data/dbNSFP/2.9.2/dbNSFP2.9.2.txt.gz,LRT_pred,MutationTaster_pred,MutationAssessor_pred,FATHMM_pred \
 --force_overwrite \
 #--gff $working_dir/vep_data/release_91/Homo_sapiens.GRCh38.91.chr.gff3.gz \
 #--fasta $working_dir/vep_data/release_91/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz \

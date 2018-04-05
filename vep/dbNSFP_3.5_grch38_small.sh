@@ -1,8 +1,8 @@
 working_dir=/hps/nobackup/production/ensembl/anja/
-bsub -q production-rh7 -M 5000 -R "rusage[mem=5000]" -J vep -o $working_dir/vep_data/dbnsfp_3.5a_grch38.out -e $working_dir/vep_data/dbnsfp_3.5a_grch38.err \
+bsub -q production-rh7 -M 5000 -R "rusage[mem=5000]" -J vep -o $working_dir/vep_data/dbnsfp_3.5a_grch38_rs1060499771.out -e $working_dir/vep_data/dbnsfp_3.5a_grch38_rs1060499771.err \
 perl $HOME/bin/ensembl-vep/vep \
--i $working_dir/vep_data/input/grch38/homo_sapiens_clinically_associated.vcf.gz \
--o $working_dir/vep_data/output/dbnsfp_3.5a_grch38.txt \
+-i $working_dir/vep_data/input/grch38/rs1060499771.txt \
+-o $working_dir/vep_data/output/dbnsfp_3.5a_grch38_rs1060499771.txt \
 --cache \
 --dir_cache /hps/nobackup/production/ensembl/anja/vep/ \
 --dir_plugins /homes/anja/bin/VEP_plugins/ \
