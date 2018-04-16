@@ -49,16 +49,18 @@ my $test_data = {
 print_use_case_cmds();
 
 sub print_use_case_cmds {
-  # region
-  my $slice = $slice_adaptor->fetch_by_region('chromosome', 6, 26547595, 28548492);
-  my $ldFeatureContainerAdaptor = $vdba->get_LDFeatureContainerAdaptor;
-#  my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice, $population);
+  # region170,805,979 
+#  my $slice = $slice_adaptor->fetch_by_region('chromosome', 6, 26_547_595, 28_548_492);
+  my $slice = $slice_adaptor->fetch_by_region('chromosome', 6, 26_547_595, 36_547_595);
 
-  my $v1 = $variation_adaptor->fetch_by_name('rs726830');
-  my $vf1 = $v1->get_all_VariationFeatures->[0];
-  my $v2 = $variation_adaptor->fetch_by_name('rs71546548');
-  my $vf2 = $v2->get_all_VariationFeatures->[0];
-  $ldFeatureContainerAdaptor->fetch_by_VariationFeatures([$vf1, $vf2], $population);
+  my $ldFeatureContainerAdaptor = $vdba->get_LDFeatureContainerAdaptor;
+  my $ldFeatureContainer = $ldFeatureContainerAdaptor->fetch_by_Slice($slice, $population);
+
+#  my $v1 = $variation_adaptor->fetch_by_name('rs726830');
+#  my $vf1 = $v1->get_all_VariationFeatures->[0];
+#  my $v2 = $variation_adaptor->fetch_by_name('rs71546548');
+#  my $vf2 = $v2->get_all_VariationFeatures->[0];
+#  $ldFeatureContainerAdaptor->fetch_by_VariationFeatures([$vf1, $vf2], $population);
 
 
 
