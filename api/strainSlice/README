@@ -1,0 +1,73 @@
+
+
+
+
+my $msc = Bio::EnsEMBL::MappedSliceContainer->new(-SLICE => $ref_slice_obj, -EXPANDED => 1);
+
+$msc->set_StrainSliceAdaptor(Bio::EnsEMBL::Variation::DBSQL::StrainSliceAdaptor->new($vdb));
+
+$msc->attach_StrainSlice($_) for @$samples;
+
+my @slices = ({
+  name  => $config->{'ref_slice_name'},
+  slice => $ref_slice_obj
+});
+
+foreach (@{$msc->get_all_MappedSlices}) {
+  my $slice = $_->get_all_Slice_Mapper_pairs->[0][0];
+  push @slices, {
+    name  => $slice->can('display_Slice_name') ? $slice->display_Slice_name : $config->{'species'},
+    slice => $slice,
+    seq   => $_->seq(1)
+  };
+}
+
+
+
+
+
+
+Utils::Sequence
+
+StrainSlice
+
+
+
+my $slice_adaptor
+
+$slice = $slice_adaptor->fetch_by_region( 'chromosome', 'X', 1_000_000, 2_000_000 );
+
+Old:
+
+$strain_slice = $slice->get_by_strain($strain_name);
+
+In variation API:
+StrainSliceAdaptor
+fetch_by_name
+
+
+
+
+
+  # get the sequence from the Strain Slice
+  my $seq = $strainSlice->seq();
+  print $seq;
+
+  # get allele features between this StrainSlice and the reference
+  my $afs = $strainSlice->get_all_AlleleFeatures_Slice();
+  foreach my $af ( @{$afs} ) {
+    print "AlleleFeature in position ", $af->start, "-", $af->end,
+      " in strain with allele ", $af->allele_string, "\n";
+  }
+
+  # compare a strain against another strain
+  my $strainSlice_2 = $slice->get_by_strain($strain_name_2);
+  my $differences =
+    $strainSlice->get_all_differences_StrainSlice($strainSlice_2);
+
+  foreach my $difference ( @{$differences} ) {
+    print "Difference in position ", $difference->start, "-",
+      $difference->end(),           " in strain with allele ",
+      $difference->allele_string(), "\n";
+  }
+
