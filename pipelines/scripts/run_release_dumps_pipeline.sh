@@ -5,5 +5,5 @@ init_pipeline.pl Bio::EnsEMBL::Variation::Pipeline::ReleaseDataDumps::ReleaseDum
 -hive_db_host ens-variation2 \
 -hive_db_password $password \
 -registry_file ${pipeline_dir}ensembl.registry \
--ensembl_release 87 \
+-ensembl_release 93 \
 -tmp_dir ${pipeline_dir}/tmp_dir \
