@@ -3,16 +3,25 @@ use warnings;
 
 use FileHandle;
 use Compress::Zlib;
+
+my $chrom = $ENV{'LSB_JOBINDEX'};
+
+if ($chrom == 23) {
+  $chrom = 'X';
+}
+if ($chrom == 24) {
+  $chrom = 'Y';
+}
+
 #my $fh_in  = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_90/dumps_human/homo_sapiens/Homo_sapiens.gvf.gz', 'r');
 #my $gvf_file  = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human_37/gvf/homo_sapiens/Homo_sapiens.gvf.gz';
 
 #my $gvf_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_90/gvf/homo_sapiens/Homo_sapiens.gvf.gz';
 #my $gvf_file = '/hps/nobackup/production/ensembl/anja/release_92/human/grch37/gvf2/homo_sapiens/homo_sapiens.gvf.gz';
 
-my $gvf_file = '/gpfs/nobackup/ensembl/anja/release_92/grch37/dumps/gvf/homo_sapiens/homo_sapiens.gvf.gz';
+my $gvf_file = "/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/gvf/homo_sapiens/homo_sapiens-chr$chrom.gvf.gz";
 my $fh_in = gzopen($gvf_file, "rb") or die "Error reading $gvf_file: $gzerrno\n";
-#my $fh_out = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_90/dumps_human_37/gvf/homo_sapiens/1000GENOMES-phase_3.gvf', 'w');
-my $fh_out = FileHandle->new('/gpfs/nobackup/ensembl/anja/release_92/grch37/dumps/gvf/homo_sapiens/1000GENOMES-phase_3.gvf', 'w');
+my $fh_out = FileHandle->new("/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/gvf/1000Genomes/1000GENOMES-phase_3_chrom$chrom.gvf", 'w');
 
 my $frequencies_chrom = {};
 
@@ -105,8 +114,8 @@ sub update_chrom {
   print STDERR $chrom, "\n";
   if ($chrom ne 'MT') {
 #/hps/nobackup/production/ensembl/anja/1000G_phase3_frequencies_08_05_2017
-    my $fh = FileHandle->new("/hps/nobackup2/production/ensembl/anja/1000G_phase3_frequencies_37_31_07_2017/$chrom.txt", 'r');
-#    my $fh = FileHandle->new("/hps/nobackup/production/ensembl/anja/1000G_phase3_frequencies_08_05_2017/$chrom.txt", 'r');
+#    my $fh = FileHandle->new("/hps/nobackup2/production/ensembl/anja/1000G_phase3_frequencies_37_31_07_2017/$chrom.txt", 'r');
+    my $fh = FileHandle->new("/hps/nobackup2/production/ensembl/anja/1000G_phase3_frequencies_08_05_2017/$chrom.txt", 'r');
 
     while (<$fh>) {
       chomp;

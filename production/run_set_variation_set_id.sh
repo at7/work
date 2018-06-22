@@ -1,8 +1,8 @@
-registry=/hps/nobackup/production/ensembl/anja/release_92/human/ensembl.registry
-species=human
+registry=/hps/nobackup2/production/ensembl/anja/release_93/cat/ensembl.registry
+species=cat
 bsub -J variation_set \
--o variation_set_human.out \
--e variation_set_human.err \
+-o variation_set_cat.out \
+-e variation_set_cat.err \
 perl post_process_variation_feature_variation_set.pl \
 -registry_file $registry \
 -species $species  \
