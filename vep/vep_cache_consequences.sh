@@ -1,0 +1,11 @@
+perl  $HOME/bin/ensembl-vep/vep \
+--cache \
+--cache_version 92 \
+--dir /hps/nobackup2/production/ensembl/anja/vep/ \
+--input_file /hps/nobackup2/production/ensembl/anja/vep_data/input/grch38/homo_sapiens_GRCh38_test_input.txt \
+--output_file /hps/nobackup2/production/ensembl/anja/vep_data/output/homo_sapiens_GRCh38_test_output.txt \
+--force_overwrite \
+--assembly GRCh38 \
+--check_existing \
+--format ensembl \
+--regulatory \

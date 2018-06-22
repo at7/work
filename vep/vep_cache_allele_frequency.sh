@@ -1,0 +1,16 @@
+perl  $HOME/bin/ensembl-vep/vep \
+--cache \
+--dir /hps/nobackup2/production/ensembl/anja/vep/ \
+--input_file /hps/nobackup2/production/ensembl/anja/vep_data/input/grch38/allele_frequencies_92.txt \
+--output_file /hps/nobackup2/production/ensembl/anja/vep_data/output/allele_frequencies_91_92.txt \
+--force_overwrite \
+--assembly GRCh38 \
+--cache_version 92 \
+--check_existing \
+--af_1kg \
+--af_esp \
+--af_gnomad \
+--fields 'Uploaded_variation,AFR_AF,AMR_AF,EAS_AF,EUR_AF,SAS_AF,AA_AF,EA_AF,gnomAD_AF,gnomAD_AFR_AF,gnomAD_AMR_AF,gnomAD_ASJ_AF,gnomAD_EAS_AF,gnomAD_FIN_AF,gnomAD_NFE_AF,gnomAD_OTH_AF,gnomAD_SAS_AF' \
+--pick \
+--failed 1 \
+--output_format tab \
