@@ -17,7 +17,7 @@ $registry->load_registry_from_db(
   -db_version => 92,
 );
 
-my $file = '/nfs/production/panda/ensembl/variation/data/dbNSFP/3.5a/dbNSFP3.5a.txt.gz';
+my $file = 'dbNSFP3.5a.txt.gz';
 
 my $headers;
 open HEAD, "tabix -fh $file 1:1-1 2>&1 | ";
@@ -34,35 +34,46 @@ my $obj = Bio::DB::HTS::Tabix->new(filename => $file);
 my $transcript_adaptor = $registry->get_adaptor('human', 'core', 'transcript');
 my $slice_adaptor = $registry->get_adaptor('human', 'core', 'slice');
 my $codonTable   = Bio::Tools::CodonTable->new();
-my $transcript = $transcript_adaptor->fetch_by_stable_id('ENST00000458104.6');
+my $transcript = $transcript_adaptor->fetch_by_stable_id('ENST00000574821');
 my $chrom = $transcript->seq_region_name;
 
 my $strand = $transcript->seq_region_strand;
 my $start = $transcript->seq_region_start;
 my $end = $transcript->seq_region_end;
 
-my $slice = $slice_adaptor->fetch_by_region('chromosome', $chrom,  $start, $end, $strand);
+my $slice = $slice_adaptor->fetch_by_region('chromosome', $chrom,  $start, $end);
 my $translation = $transcript->translation;
 my $transcript_mapper = $transcript->get_TranscriptMapper();
-foreach my $i (1 .. $translation->length) {
+my @amino_acids = split('', $translation->seq);
+my @indices = (1 .. $translation->length );
+print $translation->seq, "\n";
+foreach my $i (@indices) {
   my @pep_coordinates = $transcript_mapper->pep2genomic($i, $i);
+  print Dumper(\@pep_coordinates), "\n";
   my $triplet = ''; 
   my @coords = ();
   foreach my $coord (@pep_coordinates) {
     my $coord_start = $coord->start;
     my $coord_end = $coord->end;
+    print "$coord_start $coord_end\n";
+    next if ($coord_start <= 0);
     my $new_start = $coord_start - $start + 1;    
     my $new_end   = $coord_end   - $start + 1;    
-    my $subseq = $slice->subseq($new_start, $new_end);
+    my $subseq = $slice->subseq($new_start, $new_end, $strand);
     $triplet .= $subseq;
+    print "$coord_start $coord_end $new_start $new_end $triplet\n";
     push @coords, [$coord_start, $coord_end];
   }
   my $aa = $codonTable->translate($triplet);
+  print "AA $aa\n";
+
+#  next unless($aa);
   my $new_triplets = mutate($triplet);
 
   foreach my $coord (@coords) {
     my $triplet_start = $coord->[0];
     my $triplet_end = $coord->[1];
+    print "query $triplet_start $triplet_end\n";
     my $iter = $obj->query("$chrom:$triplet_start-$triplet_end");
     while (my $line = $iter->next) {
      $line =~ s/\r$//g;
@@ -70,17 +81,15 @@ foreach my $i (1 .. $translation->length) {
       # parse data into hash of col names and values
       my %data = map {$headers->[$_] => $split[$_]} (0..(scalar @{$headers} - 1));
       my $chr = $data{'#chr'};
-#CADD_raw
-#CADD_raw_rankscore
-#CADD_phred
       my $cadd_raw = $data{'CADD_raw'}; 
       my $cadd_rank = $data{'CADD_raw_rankscore'}; 
       my $cadd_phred = $data{'CADD_phred'}; 
-#REVEL_score
-#REVEL_rankscore
       my $revel_raw = $data{'REVEL_score'}; 
       my $revel_rank = $data{'REVEL_rankscore'}; 
-     
+      my $metaSVM_score = $data{'MetaSVM_score'};     
+      my $metaSVM_pred = $data{'MetaSVM_pred'};     
+      my $mutation_assessor_score = $data{'MutationAssessor_score'};
+      my $mutation_assessor_pred = $data{'MutationAssessor_pred'};
       my $pos = $data{'pos(1-based)'};
       my $nucleotide_position = $pos - $triplet_start;
 #      print "$pos $triplet_start $nucleotide_position\n";
@@ -94,8 +103,7 @@ foreach my $i (1 .. $translation->length) {
       my $mutated_triplet =  $new_triplets->{$triplet}->{$nucleotide_position}->{$alt};
   #    print "$triplet $nucleotide_position $alt $mutated_triplet\n";
       my $mutated_aa = $codonTable->translate($mutated_triplet);
-      print "$aa $pos $ref $alt $aaref-$aa $refcodon-$triplet $mutated_triplet $aaalt-$mutated_aa $cadd_raw $cadd_rank $cadd_phred $revel_raw $revel_rank\n";    
-
+      print "$i $aa $pos $ref $alt $aaref-$aa $refcodon-$triplet $mutated_triplet $aaalt-$mutated_aa $cadd_raw $cadd_rank $cadd_phred $revel_raw $revel_rank $metaSVM_score $metaSVM_pred $mutation_assessor_score $mutation_assessor_pred\n";    
     }
   }
 
@@ -127,7 +135,6 @@ sub get_mutated_triplets {
   }
   return $new_triplets;
 }
-
 
 sub get_mutations {
   my $nucleotide = shift;
@@ -161,7 +168,7 @@ my $end = $slice->end;
 my @transcripts = ();
 
 
-my $fh = FileHandle->new('/hps/nobackup2/production/ensembl/anja/release_94/human/dbNSFP/translations_chrom1', 'w');
+my $fh = FileHandle->new('translations_chrom1', 'w');
 
 for my $gene (@{ $slice->get_all_Genes(undef, undef, 1) }) {
   for my $transcript (@{$gene->get_all_Transcripts}) {
