@@ -1,10 +1,12 @@
 working_dir=/hps/nobackup2/production/ensembl/anja/
 bsub -q production-rh7 -M 5000 -R "rusage[mem=5000]" -J vep -o $working_dir/vep_data/paralogue_anno.out -e $working_dir/vep_data/paralogue_anno.err \
 perl  $HOME/bin/ensembl-vep/vep \
--i $working_dir/vep_data/input/grch38/homo_sapiens_clinically_associated.vcf \
--o $working_dir/vep_data/output/paralogue_anno.txt \
+-i $working_dir/vep_data/input/grch38/error_variants.vcf \
+-o $working_dir/vep_data/output/paralogue_anno_error_variants.txt \
 --cache \
---dir_cache /gpfs/nobackup/ensembl/anja/vep/ \
+--cache_version 93 \
+--db_version 93 \
+--dir /hps/nobackup2/production/ensembl/anja/vep/ \
 --dir_plugins /homes/anja/bin/VEP_plugins/ \
 --plugin ParalogueAnnotation \
 --force_overwrite \

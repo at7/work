@@ -1,0 +1,13 @@
+perl $HOME/src/ensembl-vep/vep \
+--cache \
+--cache_version 93 \
+--db_version 93 \
+--dir /hps/nobackup2/production/ensembl/anja/vep/ \
+--input_file /hps/nobackup2/production/ensembl/anja/vep_data/input/grch37/input.vcf \
+--output_file /hps/nobackup2/production/ensembl/anja/vep_data/output/output.txt \
+--force_overwrite \
+--assembly GRCh37 \
+--port 3337 \
+--cache \
+--dir_plugins $HOME/src/VEP_plugins \
+--plugin G2P,file='/homes/anja/bin/work/vep/DDG2P.csv',af_from_vcf=1 \
