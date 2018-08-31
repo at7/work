@@ -2,9 +2,9 @@ use strict;
 use warnings;
 
 use FileHandle;
-my $dir = '/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/vcf/';
+my $dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/dumps/vcf/';
 
-my $fh_out = FileHandle->new("$dir/1000GENOMES-phase_3.vcf", 'w'); 
+my $fh_out = FileHandle->new("$dir/homo_sapiens/1000GENOMES-phase_3.vcf", 'w'); 
 
 my $fh_in = FileHandle->new("$dir/1000Genomes/1000GENOMES-phase_3_chromY.vcf", 'r');
 

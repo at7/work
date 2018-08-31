@@ -6,10 +6,10 @@ use Bio::EnsEMBL::Utils::Slice qw(split_Slices);
 use FileHandle;
 use DBI;
 
-my $working_dir = '/hps/nobackup/production/ensembl/anja/allele_frequencies_37/';
+my $working_dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/dumps/allele_frequencies/';
 
 my $registry = 'Bio::EnsEMBL::Registry';
-my $registry_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human_37/ensembl.registry';
+my $registry_file = '/hps/nobackup2/production/ensembl/anja/release_94/human/dumps/ensembl.registry';
 my $species = 'human';
 die "Could not find registry_file $registry_file" unless (-e $registry_file);
 $registry->load_all($registry_file);

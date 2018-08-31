@@ -1,4 +1,3 @@
-use strict;
 use warnings;
 
 use FileHandle;
@@ -13,8 +12,8 @@ if ($i == 24) {
   $i = 'Y';
 }
 
-my $from_dir = '/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/gvf/with_tmp_keys/';
-my $to_dir = '/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/gvf/homo_sapiens/';
+my $from_dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/population_dumps/gvf/with_tmp_keys/';
+my $to_dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/population_dumps/gvf/homo_sapiens/';
 
 my $fh_out = FileHandle->new("$to_dir/homo_sapiens-chr$i.gvf", 'w'); 
 

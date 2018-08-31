@@ -16,9 +16,11 @@ if ($chrom == 24) {
 #my $fh_in = FileHandle->new('/hps/nobackup/production/ensembl/anja/release_90/dumps_human/vcf/homo_sapiens/Homo_sapiens.vcf.gz', 'r');
 #my $vcf_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human/vcf/homo_sapiens/Homo_sapiens.vcf.gz';
 #my $vcf_file = '/hps/nobackup/production/ensembl/anja/release_92/human/grch37/vcf2/homo_sapiens/homo_sapiens.vcf.gz';
-my $vcf_file = "/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/vcf/homo_sapiens/homo_sapiens-chr$chrom.vcf.gz";
+my $vcf_file = "/hps/nobackup2/production/ensembl/anja/release_94/human/dumps/vcf/homo_sapiens/homo_sapiens-chr$chrom.vcf.gz";
 
-my $fh_out = FileHandle->new("/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/vcf/1000Genomes/1000GENOMES-phase_3_chrom$chrom.vcf", 'w');
+
+
+my $fh_out = FileHandle->new("/hps/nobackup2/production/ensembl/anja/release_94/human/dumps/vcf/1000Genomes/1000GENOMES-phase_3_chrom$chrom.vcf", 'w');
 my $fh_in = gzopen($vcf_file, "rb") or die "Error reading $vcf_file: $gzerrno\n";
 
 my $frequencies_chrom = {};

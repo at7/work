@@ -5,9 +5,10 @@ use FileHandle;
 
 #ftp://ftp.ensembl.org/pub/release-92/variation/gvf/homo_sapiens/1000GENOMES-phase_3.gvf.gz
 
-my $dir = '/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/gvf/';
+#my $dir = '/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/gvf/';
+my $dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/dumps/gvf/';
 
-my $fh_out = FileHandle->new("$dir/1000GENOMES-phase_3.gvf", 'w'); 
+my $fh_out = FileHandle->new("$dir/homo_sapiens/1000GENOMES-phase_3.gvf", 'w'); 
 
 for my $i (1..22,'X', 'Y') {
 
