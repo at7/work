@@ -4,7 +4,7 @@ use warnings;
 use Bio::DB::Fasta;
 
 
-my $fasta_db = Bio::DB::Fasta->new('/hps/nobackup/production/ensembl/anja/release_91/sheep/remapping/old_assembly/');
+my $fasta_db = Bio::DB::Fasta->new('/hps/nobackup2/production/ensembl/anja/release_94/dog/remapping/old_assembly/');
 
 my @ids = $fasta_db->get_all_primary_ids;
 my $sequence_name_2_id = {};
