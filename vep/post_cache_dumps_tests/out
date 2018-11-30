@@ -1,0 +1,86 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-05-16>
+Subject: Job 1655569: <cmp> in cluster <EBI> Done
+
+Job <cmp> was submitted from host <ebi-cli-003> by user <anja> in cluster <EBI> at Thu Nov 29 11:08:26 2018
+Job was executed on host(s) <hx-noah-05-16>, in queue <production-rh7>, as user <anja> in cluster <EBI> at Thu Nov 29 11:08:26 2018
+</homes/anja> was used as the home directory.
+</homes/anja/bin/work/vep/post_cache_dumps_tests> was used as the working directory.
+Started at Thu Nov 29 11:08:26 2018
+Terminated at Thu Nov 29 11:29:24 2018
+Results reported at Thu Nov 29 11:29:24 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+perl compare_annotation.pl
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1257.68 sec.
+    Max Memory :                                 36 MB
+    Average Memory :                             25.72 MB
+    Total Requested Memory :                     5000.00 MB
+    Delta Memory :                               4964.00 MB
+    Max Swap :                                   187 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   1258 sec.
+    Turnaround time :                            1258 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-199>
+Subject: Job 1660300: <cmp> in cluster <EBI> Done
+
+Job <cmp> was submitted from host <ebi-cli-003> by user <anja> in cluster <EBI> at Thu Nov 29 11:39:44 2018
+Job was executed on host(s) <ebi5-199>, in queue <production-rh7>, as user <anja> in cluster <EBI> at Thu Nov 29 11:39:45 2018
+</homes/anja> was used as the home directory.
+</homes/anja/bin/work/vep/post_cache_dumps_tests> was used as the working directory.
+Started at Thu Nov 29 11:39:45 2018
+Terminated at Thu Nov 29 12:04:45 2018
+Results reported at Thu Nov 29 12:04:45 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+perl compare_annotation.pl
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1499.85 sec.
+    Max Memory :                                 17 MB
+    Average Memory :                             13.49 MB
+    Total Requested Memory :                     5000.00 MB
+    Delta Memory :                               4983.00 MB
+    Max Swap :                                   168 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   1500 sec.
+    Turnaround time :                            1501 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <err> for stderr output of this job.
+
