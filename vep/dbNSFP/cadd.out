@@ -1,0 +1,43 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-202>
+Subject: Job 2505247: <cadd> in cluster <EBI> Done
+
+Job <cadd> was submitted from host <ebi-cli-003> by user <anja> in cluster <EBI> at Mon Dec  3 11:53:10 2018
+Job was executed on host(s) <ebi5-202>, in queue <research-rh7>, as user <anja> in cluster <EBI> at Mon Dec  3 11:53:11 2018
+</homes/anja> was used as the home directory.
+</homes/anja/bin/work/vep/dbNSFP> was used as the working directory.
+Started at Mon Dec  3 11:53:11 2018
+Terminated at Mon Dec  3 11:53:13 2018
+Results reported at Mon Dec  3 11:53:13 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+perl count_annotations.pl
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1.73 sec.
+    Max Memory :                                 8 MB
+    Average Memory :                             8.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   159 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   2 sec.
+    Turnaround time :                            3 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <cadd.err> for stderr output of this job.
+

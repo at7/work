@@ -1,0 +1,11 @@
+perl  $HOME/bin/ensembl-vep/vep \
+--species homo_sapiens \
+--cache \
+--offline \
+--cache_version 94 \
+--dir /nfs/production/panda/ensembl/variation/data/VEP/ \
+--input_file  /hps/nobackup2/production/ensembl/anja/vep_data/input/refseq.txt \
+--output_file /hps/nobackup2/production/ensembl/anja/vep_data/output/ensembl_94.txt \
+--force_overwrite \
+--symbol \
+--use_given_ref \

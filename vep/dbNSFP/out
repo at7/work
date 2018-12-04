@@ -1,0 +1,216 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi6-100>
+Subject: Job 2500249: <dbnsfp> in cluster <EBI> Done
+
+Job <dbnsfp> was submitted from host <ebi-cli-003> by user <anja> in cluster <EBI> at Mon Dec  3 11:02:05 2018
+Job was executed on host(s) <ebi6-100>, in queue <research-rh7>, as user <anja> in cluster <EBI> at Mon Dec  3 11:02:06 2018
+</homes/anja> was used as the home directory.
+</homes/anja/bin/work/vep/dbNSFP> was used as the working directory.
+Started at Mon Dec  3 11:02:06 2018
+Terminated at Mon Dec  3 11:03:06 2018
+Results reported at Mon Dec  3 11:03:06 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+sh dbNSFP_grch37_95.sh
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   57.32 sec.
+    Max Memory :                                 436 MB
+    Average Memory :                             368.17 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   762 MB
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   60 sec.
+    Turnaround time :                            61 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-181>
+Subject: Job 2501153: <dbnsfp> in cluster <EBI> Done
+
+Job <dbnsfp> was submitted from host <ebi-cli-003> by user <anja> in cluster <EBI> at Mon Dec  3 11:09:49 2018
+Job was executed on host(s) <ebi5-181>, in queue <research-rh7>, as user <anja> in cluster <EBI> at Mon Dec  3 11:09:49 2018
+</homes/anja> was used as the home directory.
+</homes/anja/bin/work/vep/dbNSFP> was used as the working directory.
+Started at Mon Dec  3 11:09:49 2018
+Terminated at Mon Dec  3 11:10:51 2018
+Results reported at Mon Dec  3 11:10:51 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+sh dbNSFP_grch37_95.sh
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   58.11 sec.
+    Max Memory :                                 441 MB
+    Average Memory :                             365.50 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   772 MB
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   62 sec.
+    Turnaround time :                            62 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-182>
+Subject: Job 2501841: <dbnsfp> in cluster <EBI> Done
+
+Job <dbnsfp> was submitted from host <ebi-cli-003> by user <anja> in cluster <EBI> at Mon Dec  3 11:16:23 2018
+Job was executed on host(s) <ebi5-182>, in queue <research-rh7>, as user <anja> in cluster <EBI> at Mon Dec  3 11:16:24 2018
+</homes/anja> was used as the home directory.
+</homes/anja/bin/work/vep/dbNSFP> was used as the working directory.
+Started at Mon Dec  3 11:16:24 2018
+Terminated at Mon Dec  3 11:17:46 2018
+Results reported at Mon Dec  3 11:17:46 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+sh dbNSFP_grch37_95.sh
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   79.60 sec.
+    Max Memory :                                 441 MB
+    Average Memory :                             359.33 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   770 MB
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   82 sec.
+    Turnaround time :                            83 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-150>
+Subject: Job 2502349: <dbnsfp> in cluster <EBI> Done
+
+Job <dbnsfp> was submitted from host <ebi-cli-003> by user <anja> in cluster <EBI> at Mon Dec  3 11:22:34 2018
+Job was executed on host(s) <ebi5-150>, in queue <research-rh7>, as user <anja> in cluster <EBI> at Mon Dec  3 11:22:35 2018
+</homes/anja> was used as the home directory.
+</homes/anja/bin/work/vep/dbNSFP> was used as the working directory.
+Started at Mon Dec  3 11:22:35 2018
+Terminated at Mon Dec  3 11:23:51 2018
+Results reported at Mon Dec  3 11:23:51 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+sh dbNSFP_grch37_95.sh
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   73.40 sec.
+    Max Memory :                                 441 MB
+    Average Memory :                             360.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   769 MB
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   76 sec.
+    Turnaround time :                            77 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi6-091>
+Subject: Job 2505353: <dbnsfp> in cluster <EBI> Exited
+
+Job <dbnsfp> was submitted from host <ebi-cli-003> by user <anja> in cluster <EBI> at Mon Dec  3 11:55:35 2018
+Job was executed on host(s) <ebi6-091>, in queue <production-rh7>, as user <anja> in cluster <EBI> at Mon Dec  3 11:55:35 2018
+</homes/anja> was used as the home directory.
+</homes/anja/bin/work/vep/dbNSFP> was used as the working directory.
+Started at Mon Dec  3 11:55:35 2018
+Terminated at Tue Dec  4 16:23:57 2018
+Results reported at Tue Dec  4 16:23:57 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+sh dbNSFP_grch37_95.sh
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   102482.00 sec.
+    Max Memory :                                 1817 MB
+    Average Memory :                             1671.52 MB
+    Total Requested Memory :                     5000.00 MB
+    Delta Memory :                               3183.00 MB
+    Max Swap :                                   2151 MB
+    Max Processes :                              5
+    Max Threads :                                6
+    Run time :                                   102502 sec.
+    Turnaround time :                            102502 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <err> for stderr output of this job.
+

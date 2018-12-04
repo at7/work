@@ -1,0 +1,6 @@
+WARNING: Failed to compile plugin LD: Global symbol "$res" requires explicit package name at /homes/anja/bin/VEP_plugins/LD.pm line 280.
+Global symbol "$res" requires explicit package name at /homes/anja/bin/VEP_plugins/LD.pm line 282.
+Global symbol "$res" requires explicit package name at /homes/anja/bin/VEP_plugins/LD.pm line 283.
+Compilation failed in require at (eval 352) line 2.
+BEGIN failed--compilation aborted at (eval 352) line 2.
+
