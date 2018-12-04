@@ -8,8 +8,9 @@ use Bio::EnsEMBL::Registry;
 my $registry = 'Bio::EnsEMBL::Registry';
 
 #my $data_dump_dir = '/hps/nobackup/production/ensembl/anja/release_92/dumps/grch38/';
-my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_94/dumps/';
-
+#my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/grch37/dumps/';
+#my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_95/human/dumps/';
+my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_95/human/grch37/dumps/';
 #my $registry_file = '/hps/nobackup/production/ensembl/anja/release_92/dumps/grch38/ensembl.registry';
 #my $registry_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human/ensembl.registry';
 
@@ -63,7 +64,7 @@ sub tabix_vcf_files {
 
 sub compute_checksums {
   my ($data_dir, $all_species) = @_;
-  foreach my $file_type (qw/vcf gvf/) {
+  foreach my $file_type (qw/gvf/) {
 #  foreach my $file_type (qw/vcf/) {
 
     foreach my $species (keys %$all_species) {

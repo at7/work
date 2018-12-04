@@ -6,13 +6,25 @@ use FileHandle;
 #ftp://ftp.ensembl.org/pub/release-92/variation/gvf/homo_sapiens/1000GENOMES-phase_3.gvf.gz
 
 #my $dir = '/hps/nobackup2/production/ensembl/anja/release_93/human/dumps/gvf/';
-my $dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/dumps/gvf/';
+#my $dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/dumps/gvf/';
 
-my $fh_out = FileHandle->new("$dir/homo_sapiens/1000GENOMES-phase_3.gvf", 'w'); 
+#my $dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/grch37/dumps/gvf/homo_sapiens/';
+my $dir = '/hps/nobackup2/production/ensembl/anja/release_95/human/grch37/dumps/gvf/homo_sapiens/';
+
+my $fh_out = FileHandle->new("$dir/1000GENOMES-phase_3.gvf", 'w'); 
+
+my $fh_header = FileHandle->new("$dir/gvf_header", 'r');
+while (<$fh_header>) {
+  chomp;
+  print $fh_out "$_\n";
+}
+$fh_header->close;
+
+my $id = 1;
 
 for my $i (1..22,'X', 'Y') {
 
-  my $fh_in = FileHandle->new("$dir/1000Genomes/1000GENOMES-phase_3_chrom$i.gvf", 'r');
+  my $fh_in = FileHandle->new("$dir/1000GENOMES-phase_3_chrom$i.gvf", 'r');
 
   while (<$fh_in>) {
     chomp;
@@ -21,6 +33,9 @@ for my $i (1..22,'X', 'Y') {
     my $gvf_line = get_gvf_line($line);
     delete $gvf_line->{attributes}->{variation_id};
     delete $gvf_line->{attributes}->{allele_string};
+    $gvf_line->{attributes}->{ID} = $id;
+    $id++;
+
     $line = join("\t", map {$gvf_line->{$_}} (
       'seq_id',
       'source',

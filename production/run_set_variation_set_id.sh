@@ -1,4 +1,4 @@
-registry=/hps/nobackup2/production/ensembl/anja/release_93/cat/ensembl.registry
+registry=/hps/nobackup2/production/ensembl/anja/release_95/cat/ensembl.registry.newasm
 species=cat
 bsub -J variation_set \
 -o variation_set_cat.out \
