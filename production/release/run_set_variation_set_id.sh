@@ -1,5 +1,5 @@
-registry=$1
-species=$2
+registry=/hps/nobackup2/production/ensembl/anja/release_96/cow/remapping/ensembl.registry.newasm
+species=cow
 script_dir=/homes/anja/bin/ensembl-variation/scripts/import/
 echo $registry
 cd $script_dir
