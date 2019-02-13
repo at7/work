@@ -11,18 +11,19 @@ my $registry = 'Bio::EnsEMBL::Registry';
 $registry->load_registry_from_db(
   -host => 'ensembldb.ensembl.org',
   -user => 'anonymous',
-  -db_version => 94,
+  -db_version => 95,
 );
 
 
 my $slice_adaptor = $registry->get_adaptor('human', 'core', 'slice');
-my $slice = $slice_adaptor->fetch_by_region( 'chromosome', '13', 32_314_000, 32_317_500 );
+my $slice = $slice_adaptor->fetch_by_region( 'chromosome', '10', 102456350, 103456387);
 
 
 my $regulatory_feature_adaptor = $registry->get_adaptor('human', 'funcgen', 'regulatoryfeature');
 
 my $regulatory_features = $regulatory_feature_adaptor->fetch_all_by_Slice($slice);
 
+print  $regulatory_features, "\n";
 print 'Regulatory Feature for region 13:32314000-32317500 ', scalar @$regulatory_features, "\n"; 
 
 foreach my $rf (@$regulatory_features) {
