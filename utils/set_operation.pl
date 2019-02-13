@@ -5,8 +5,8 @@ use FileHandle;
 
 my $dir = '/hps/nobackup2/production/ensembl/anja/release_96/HC/';
 
-my $fh_all = FileHandle->new("$dir/variation_tables_96", 'r');
-my $fh_master = FileHandle->new("$dir/master_schema_variation_96", 'r');
+my $fh_all = FileHandle->new("$dir/sorted_hc_cases", 'r');
+my $fh_master = FileHandle->new("$dir/sorted_passed", 'r');
 
 
 my $master_tables = {};
@@ -33,8 +33,8 @@ foreach my $table (keys %$all_tables) {
   }
 }
 
-my $fh = FileHandle->new("$dir/non_master_schema_variation_96", 'w');
+my $fh = FileHandle->new("$dir/still_to_run", 'w');
 
-print $fh join(' ', keys %$non_master), "\n";
+print $fh join("\n", sort keys %$non_master), "\n";
 
 $fh->close;
