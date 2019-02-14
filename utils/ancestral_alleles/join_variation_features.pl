@@ -9,13 +9,11 @@ my $vf_aa_file = '/hps/nobackup2/production/ensembl/anja/release_96/human/ancest
 my $fh = FileHandle->new($vf_aa_file, 'w');
 
 for my $i (1..70) {
-  my $fh_txt = FileHandle->new("$dir/$i.txt", 'r');
+  my $fh_txt = FileHandle->new("$dir/$i.out", 'r');
   while (<$fh_txt>) {
     print $fh $_;
   }
   $fh_txt->close;
-
 }
-
 $fh->close;
 
