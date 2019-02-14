@@ -13,7 +13,7 @@ perl ${variation_api}/import_ancestral_alleles.pl \
 -mode load \
 -version $release \
 -host mysql-ens-var-prod-3.ebi.ac.uk \
--dbname ancestral_homo_sapiens_variation_96_38 \
+-dbname homo_sapiens_variation_96_38 \
 -user ensadmin \
 -pass $password \
 -port 4606 \
