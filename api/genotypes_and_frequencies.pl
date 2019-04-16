@@ -7,6 +7,7 @@ my $registry = 'Bio::EnsEMBL::Registry';
 $registry->load_registry_from_db(
   -host => 'ensembldb.ensembl.org',
   -user => 'anonymous',
+  -DB_VERSION => 95
 );
 
 my $population_adaptor = $registry->get_adaptor('human', 'variation', 'population');
@@ -16,7 +17,7 @@ $variation_adaptor->db->use_vcf(1);
 
 my $slice_adaptor = $registry->get_adaptor('human', 'core', 'slice');
 #   133,797,422 
-my $slice = $slice_adaptor->fetch_by_region('chromosome', 10, 33_797_422, 34_797_422);
+my $slice = $slice_adaptor->fetch_by_region('chromosome', 10, 33_797_422, 33_798_422);
 
 my @vfs = @{$vfa->fetch_all_by_Slice($slice)};
 foreach my $vf (@vfs) {
