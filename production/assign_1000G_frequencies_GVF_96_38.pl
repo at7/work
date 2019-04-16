@@ -19,10 +19,14 @@ if ($chrom == 24) {
 #my $gvf_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_90/gvf/homo_sapiens/Homo_sapiens.gvf.gz';
 #my $gvf_file = '/hps/nobackup/production/ensembl/anja/release_92/human/grch37/gvf2/homo_sapiens/homo_sapiens.gvf.gz';
 
-my $gvf_file = "/hps/nobackup2/production/ensembl/anja/release_95/human/grch37/dumps/gvf/homo_sapiens/homo_sapiens-chr$chrom.gvf.gz";
-
+#my $gvf_file = "/hps/nobackup2/production/ensembl/anja/release_94/human/grch37/dumps/gvf/homo_sapiens/homo_sapiens-chr$chrom.gvf.gz";
+#my $fh_in = gzopen($gvf_file, "rb") or die "Error reading $gvf_file: $gzerrno\n";
+#my $fh_out = FileHandle->new("/hps/nobackup2/production/ensembl/anja/release_94/human/grch37/dumps/gvf/homo_sapiens/1000GENOMES-phase_3_chrom$chrom.gvf", 'w');
+# /hps/nobackup2/production/ensembl/anja/release_95/human/dumps/gvf/homo_sapiens
+#
+my $gvf_file = "/hps/nobackup2/production/ensembl/anja/release_96/human/dumps/population_dumps/gvf/homo_sapiens/homo_sapiens-chr$chrom.gvf.gz";
 my $fh_in = gzopen($gvf_file, "rb") or die "Error reading $gvf_file: $gzerrno\n";
-my $fh_out = FileHandle->new("/hps/nobackup2/production/ensembl/anja/release_95/human/grch37/dumps/gvf/homo_sapiens/1000GENOMES-phase_3_chrom$chrom.gvf", 'w');
+my $fh_out = FileHandle->new("/hps/nobackup2/production/ensembl/anja/release_96/human/dumps/population_dumps/gvf/homo_sapiens/1000GENOMES-phase_3_chrom$chrom.gvf", 'w');
 
 my $frequencies_chrom = {};
 

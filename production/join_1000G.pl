@@ -3,7 +3,7 @@ use warnings;
 
 use FileHandle;
 #my $dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/grch37/dumps/vcf/homo_sapiens/';
-my $dir = '/hps/nobackup2/production/ensembl/anja/release_95/human/grch37/dumps/vcf/homo_sapiens/';
+my $dir = '/hps/nobackup2/production/ensembl/anja/release_96/human/dumps/population_dumps/vcf/homo_sapiens/';
 
 my $fh_out = FileHandle->new("$dir/1000GENOMES-phase_3.vcf", 'w'); 
 
