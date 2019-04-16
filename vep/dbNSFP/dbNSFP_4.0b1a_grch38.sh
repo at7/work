@@ -8,7 +8,7 @@ perl $HOME/bin/ensembl-vep/vep \
 --dir_cache /nfs/production/panda/ensembl/variation/data/VEP/ \
 --cache_version 95 \
 --dir_plugins /homes/anja/bin/VEP_plugins/ \
---plugin dbNSFP,/nfs/production/panda/ensembl/variation/data/dbNSFP/4.0b1/dbNSFP4.0b1a.gz,LRT_pred,MutationTaster_pred,MutationAssessor_pred,FATHMM_pred \
+--plugin "dbNSFP,/nfs/production/panda/ensembl/variation/data/dbNSFP/4.0b1/dbNSFP4.0b1a.gz,LRT_pred,MutationTaster_pred,MutationAssessor_pred,FATHMM_pred" \
 --force_overwrite \
 #--gff $working_dir/vep_data/release_91/Homo_sapiens.GRCh38.91.chr.gff3.gz \
 #--fasta $working_dir/vep_data/release_91/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz \
@@ -32,4 +32,4 @@ perl $HOME/bin/ensembl-vep/vep \
 #--everything \
 #1000GENOMES-phase_3.vcf.gz
 #--plugin dbNSFP,/nfs/production/panda/ensembl/variation/data/dbNSFP/3.5a_grch37/dbNSFP3.5a_grch37.txt.gz,LRT_pred,MutationTaster_pred,MutationAssessor_pred,FATHMM_pred \
-
+#./vep -cache -dir /media/Data/Ensembl/EnsemblVEPCache -i sample.vcf -o sample.txt --merged --force -e --fork 2  --offline --assembly GRCh38 --fasta /media/Data/reference/hg38/gatk/hg38.fasta --canonical --symbol --tab --show_ref_allele --plugin dbNSFP, /media/Base/download/dbNSFP/dbNSFP4.0b1a.gz,ALL
