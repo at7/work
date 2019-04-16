@@ -3,23 +3,26 @@ use warnings;
 
 use Bio::EnsEMBL::IO::Parser::BigWig;
 use Bio::EnsEMBL::Registry;
+use Data::Dumper;
 my $registry = 'Bio::EnsEMBL::Registry';
 
 $registry->load_registry_from_db(
   -host => 'ensembldb.ensembl.org',
   -user => 'anonymous',
-  -db_version => 94,
+  -db_version => 95,
 );
 
 my $va = $registry->get_adaptor('human', 'variation', 'variation');
 my $vfa = $registry->get_adaptor('human', 'variation', 'variationfeature');
-
+# COSM6596488
 my $variation = $va->fetch_by_name('rs699');
+
 my $vf = $variation->get_all_VariationFeatures->[0];
 my $gerp_score = $vf->get_gerp_score;
-print "GERP score $gerp_score\n";
+print Dumper($gerp_score), "\n";
 
-my $cadd_scores = $vf->get_cadd_scores;
+my $cadd_scores = $vf->get_all_cadd_scores;
+print Dumper($cadd_scores), "\n";
 foreach my $allele (keys %$cadd_scores) {
   print $allele, ' ', $cadd_scores->{$allele}, "\n";
 }
