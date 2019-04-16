@@ -1,0 +1,11 @@
+perl $HOME/bin/ensembl-vep/vep \
+--cache_version 96 \
+--dir  /hps/nobackup2/production/ensembl/anja/release_96/human/vep_dumps/vertebrates/dumps/ \
+--input_file /hps/nobackup2/production/ensembl/anja/vep_data/input/grch37/test_gnomad.vcf \
+--output_file /hps/nobackup2/production/ensembl/anja/vep_data/output/grch37/test_gnomad4.vcf \
+--force_overwrite \
+--cache \
+--offline \
+--af \
+--af_gnomad \
+--vcf \

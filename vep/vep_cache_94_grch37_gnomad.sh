@@ -1,0 +1,17 @@
+perl $HOME/bin/ensembl-vep/vep \
+--cache_version 94 \
+--db_version 94 \
+--dir /nfs/production/panda/ensembl/variation/data/VEP/ \
+--input_file /hps/nobackup2/production/ensembl/anja/vep_data/input/grch37/input_vep_20190313.vcf \
+--output_file /hps/nobackup2/production/ensembl/anja/vep_data/output/grch37/input_vep_20190313.out \
+--force_overwrite \
+--cache \
+--offline \
+--assembly GRCh37 \
+--everything \
+--af \
+--max_af \
+--af_gnomad \
+--merged \
+--use_given_ref \
+--failed 1 \
