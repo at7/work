@@ -9,8 +9,8 @@ my $fh_not_in_new = FileHandle->new("cmp_vep_cache_fixed_not_in_new", 'w');
 my $fh_not_in_prev = FileHandle->new("cmp_vep_cache_fixed_not_in_prev", 'w');
 my $fh_different_values = FileHandle->new("cmp_vep_cache_fixed_different_values", 'w');
 
-my $previous_release = file2hash("$dir/vep_cache_test_95_38.out");
-my $new_release = file2hash("$dir/vep_cache_test_96_38_fixed.out");
+my $previous_release = file2hash("$dir/vep_cache_test_96_38.out");
+my $new_release = file2hash("$dir/vep_cache_test_97_38.out");
 #vep_cache_test_96_38_refseq.out
 # not anymore in new release
 foreach my $key (keys %$previous_release) {

@@ -4,7 +4,7 @@ use warnings;
 use Bio::EnsEMBL::Registry;
 use FileHandle;
 
-my $fh = FileHandle->new("/hps/nobackup2/production/ensembl/anja/vep_data/input/grch37/vep_cache_test_chr12.txt", 'w');
+my $fh = FileHandle->new("/hps/nobackup2/production/ensembl/anja/vep_data/input/grch37/vep_cache_test.txt", 'w');
 
 my $registry = 'Bio::EnsEMBL::Registry';
 my $file = '/hps/nobackup2/production/ensembl/anja/release_96/human/GRCh37/vep_dumps/ensembl.registry';
