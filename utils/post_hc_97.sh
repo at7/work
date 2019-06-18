@@ -1,0 +1,1 @@
+mysql-ens-var-prod-3 homo_sapiens_variation_97_38 -e"SELECT v.* FROM variation v JOIN failed_variation fv ON (v.variation_id = fv.variation_id) LEFT JOIN variation_citation vc ON (v.variation_id = vc.variation_id) LEFT JOIN phenotype_feature pf ON (v.name = pf.object_id) WHERE v.display = 1 AND vc.variation_id IS NULL AND pf.phenotype_id IS NULL;";

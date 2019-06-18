@@ -1,0 +1,20 @@
+perl $HOME/bin/ensembl-vep/vep \
+--species homo_sapiens \
+--assembly GRCh37 --no_progress --no_stats --buffer_size 5000 \
+--sift b \
+--ccds \
+--uniprot --hgvs --symbol --numbers --domains --gene_phenotype --canonical \
+--protein --biotype --uniprot --tsl --variant_class --shift_hgvs 1 --check_existing \
+--total_length --allele_number --no_escape --xref_refseq --failed 1 --vcf --flag_pick_allele \
+--pick_order canonical,tsl,biotype,rank,ccds,length \
+--dir /nfs/production/panda/ensembl/variation/data/VEP/tabixconverted/ \
+--cache_version 95 \
+--fasta /nfs/production/panda/ensembl/variation/data/Homo_sapiens.GRCh37.dna.primary_assembly.fa.gz \
+--format vcf \
+--input_file /hps/nobackup2/production/ensembl/anja/vep_data/input/grch37/maf2vcf_input.vcf  \
+--output_file /hps/nobackup2/production/ensembl/anja/vep_data/output/grch37/out_maf2vcf_input.vcf \
+--offline \
+--pubmed \
+--fork 4 \
+--polyphen b --af --af_1kg --af_esp --af_gnomad --regulatory \
+--force_overwrite \

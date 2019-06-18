@@ -9,7 +9,7 @@ my $registry = 'Bio::EnsEMBL::Registry';
 $registry->load_registry_from_db(
   -host => 'ensembldb.ensembl.org',
   -user => 'anonymous',
-  -db_version => 95,
+  -db_version => 96,
 );
 
 my $va = $registry->get_adaptor('human', 'variation', 'variation');

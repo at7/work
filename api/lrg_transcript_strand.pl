@@ -10,6 +10,7 @@ $registry->load_registry_from_db(
   -host => 'mysql-ens-mirror-1',
   -user => 'ensro',
   -port => 4240,
+  -DB_version => 96,
 );
 
 

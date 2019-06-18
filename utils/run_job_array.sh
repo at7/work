@@ -1,4 +1,4 @@
-bsub -J "parse_vcf[1-24]%13" \
+bsub -J "parse_vcf[11-693]%20" \
 -o parse_parallel.%I.out \
 -e parse_parallel.%I.err \
-perl parse_vcf_gz.pl
+perl update_aa.pl

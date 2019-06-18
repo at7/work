@@ -7,7 +7,6 @@ my $registry = 'Bio::EnsEMBL::Registry';
 $registry->load_registry_from_db(
   -host => 'ensembldb.ensembl.org',
   -user => 'anonymous',
-  -DB_VERSION => 95
 );
 
 my $population_adaptor = $registry->get_adaptor('human', 'variation', 'population');
