@@ -1,0 +1,4 @@
+dir=/hps/nobackup2/production/ensembl/anja/G2P/test_data/
+perl $HOME/bin/ensembl-vep/filter_vep \
+-i $dir/suspect_gnomad_grch37_90_out.vcf --format vcf -o $dir/suspect_gnomad_grch37_90_out_filtered.vcf \
+-filter "[(AFR_AF < 0.001 or not AFR_AF) and (AMR_AF < 0.001 or not AMR_AF) and (EAS_AF < 0.001 or not EAS_AF) and (EUR_AF < 0.001 or not EUR_AF) and (SAS_AF < 0.001 or not SAS_AF) and (AA_AF < 0.001 or not AA_AF) and (EA_AF < 0.001 or not EA_AF) and (gnomAD_AF < 0.001 or not gnomAD_AF) and (gnomAD_AFR_AF < 0.001 or not gnomAD_AFR_AF) and (gnomAD_AMR_AF < 0.001 or not gnomAD_AMR_AF) and (gnomAD_ASJ_AF < 0.001 or not gnomAD_ASJ_AF) and (gnomAD_EAS_AF < 0.001 or not gnomAD_EAS_AF) and (gnomAD_FIN_AF < 0.001 or not gnomAD_FIN_AF) and (gnomAD_NFE_AF < 0.001 or not gnomAD_NFE_AF) and (gnomAD_OTH_AF < 0.001 or not gnomAD_OTH_AF) and (gnomAD_SAS_AF < 0.001 or not gnomAD_SAS_AF)]"
