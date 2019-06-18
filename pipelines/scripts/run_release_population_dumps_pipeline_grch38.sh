@@ -1,7 +1,7 @@
-ENS_VERSION=96
+ENS_VERSION=97
 HIVE_SRV=mysql-ens-var-prod-2-ensadmin
 BASE_DIR=${HOME}/bin
-DUMP_DIR=/hps/nobackup2/production/ensembl/anja/release_96/human/dumps/population_dumps/
+DUMP_DIR=/hps/nobackup2/production/ensembl/anja/release_97/human/dumps/population_dumps/
 init_pipeline.pl Bio::EnsEMBL::Variation::Pipeline::ReleaseDataDumps::PopulationDumps_conf \
     $($HIVE_SRV details hive) \
     -ensembl_cvs_root_dir $BASE_DIR \

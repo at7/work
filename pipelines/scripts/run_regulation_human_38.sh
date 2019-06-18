@@ -1,5 +1,5 @@
-pipeline_name=regulation_effect_38_96
-pipeline_dir=/hps/nobackup2/production/ensembl/anja/release_96/human/regulation_effect/
+pipeline_name=regulation_effect_38_97
+pipeline_dir=/hps/nobackup2/production/ensembl/anja/release_97/human/regulation_effect/
 species=human
 HIVE_SRV=mysql-ens-var-prod-1-ensadmin
 init_pipeline.pl Bio::EnsEMBL::Variation::Pipeline::RegulationEffect_conf \
