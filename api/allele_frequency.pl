@@ -11,7 +11,7 @@ $registry->load_registry_from_db(
 
 my $va = $registry->get_adaptor('human', 'variation', 'variation');
 $va->db->use_vcf(1);
-my $variation = $va->fetch_by_name('rs770602');
+my $variation = $va->fetch_by_name('rs2359294');
 
 my @alleles = @{$variation->get_all_Alleles};
 
