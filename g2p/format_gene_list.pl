@@ -2,8 +2,6 @@ use strict;
 use warnings;
 use FileHandle;
 
-
-
 my $dir = '/hps/nobackup2/production/ensembl/anja/G2P/test_data/'; 
 
 # chr start end strand gene_symbol gene_name
