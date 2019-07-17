@@ -8,7 +8,7 @@ use DBI;
 my $vdba_newasm = new Bio::EnsEMBL::Variation::DBSQL::DBAdaptor(
   -host   => 'mysql-ens-var-prod-1.ebi.ac.uk',
   -user   => 'ensadmin',
-  -pass   => 'ensembl',
+  -pass   => '',
   -port   => 4449,
   -dbname => 'homo_sapiens_variation_90_37_seh',
 );
