@@ -12,7 +12,7 @@ perl ${script_dir}project_feature.pl \
 -load_failed_projections \
 -vdbname_newasm rattus_norvegicus_variation_80_6 \
 -vhost_newasm genebuild10 \
--p ensembl \
+-p  \
 -cdbname_oldasm rattus_norvegicus_core_79_5 \
 -chost_oldasm ens-livemirror \
 -cdbname_newasm rattus_norvegicus_core_80_6 \

@@ -13,7 +13,7 @@ perl ${script_dir}project_feature.pl \
 -vdbname_newasm homo_sapiens_variation_90_37_seh \
 -vhost_newasm mysql-ens-var-prod-1.ebi.ac.uk \
 -vuser_newasm ensadmin \
--p ensembl \
+-p \
 -vport_newasm 4449 \
 -cdbname_oldasm homo_sapiens_core_89_38 \
 -chost_oldasm mysql-ensembl-mirror.ebi.ac.uk \
