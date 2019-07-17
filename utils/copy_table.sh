@@ -1,1 +1,1 @@
-mysqldump -h mysql-ens-var-prod-2 -u ensadmin -p'ensembl' -P 4521 danio_rerio_variation_91_10 variation_set_variation | mysql -h mysql-ens-var-prod-2.ebi.ac.uk -u ensadmin -p'ensembl' -P 4521 danio_rerio_variation_93_11
+mysqldump -h mysql-ens-var-prod-2 -u ensadmin -p'' -P 4521 danio_rerio_variation_91_10 variation_set_variation | mysql -h mysql-ens-var-prod-2.ebi.ac.uk -u ensadmin -p'' -P 4521 danio_rerio_variation_93_11
