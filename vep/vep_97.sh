@@ -1,0 +1,35 @@
+SIRA="Uploaded_variation,PHENOTYPES,cDNA_position,REF_ALLELE,Allele,Protein_position,Amino_acids,Codons,SYMBOL,EXON,INTRON,ZYG,Consequence,CLIN_SIG,Existing_variation,rs_dbSNP150,G2P_complete,G2P_flag,G2P_gene_req,Mastermind_MMID3,Mastermind_counts,clinvar_rs,clinvar_trait,DOMAINS,Interpro_domain,hg18_chr,hg18_pos(1-based),hg19_chr,hg19_pos(1-based),ExAC_AC,ExAC_AF,gnomAD_exomes_AC,gnomAD_exomes_AF,gnomAD_genomes_AC,gnomAD_genomes_AF,Ensembl_geneid,Ensembl_proteinid,Ensembl_transcriptid,HGVSc,HGVSp,Location,Gene,Feature,Feature_type,CDS_position,IND,ALLELE_NUM,IMPACT,DISTANCE,STRAND,FLAGS,VARIANT_CLASS,SYMBOL_SOURCE,HGNC_ID,BIOTYPE,CANONICAL,MANE,CCDS,ENSP,SWISSPROT,TREMBL,UNIPARC,REFSEQ_MATCH,SOURCE,SIFT,PolyPhen,HGVS_OFFSET,AF,AFR_AF,AMR_AF,EAS_AF,EUR_AF,SAS_AF,AA_AF,EA_AF,gnomAD_AF,gnomAD_AFR_AF,gnomAD_AMR_AF,gnomAD_ASJ_AF,gnomAD_EAS_AF,gnomAD_FIN_AF,gnomAD_NFE_AF,gnomAD_OTH_AF,gnomAD_SAS_AF,SOMATIC,PHENO,OverlapBP,OverlapPC,1000Gp3_AC,1000Gp3_AF,1000Gp3_AFR_AC,1000Gp3_AFR_AF,1000Gp3_AMR_AC,1000Gp3_AMR_AF,1000Gp3_EAS_AC,1000Gp3_EAS_AF,1000Gp3_EUR_AC,1000Gp3_EUR_AF,1000Gp3_SAS_AC,1000Gp3_SAS_AF,ALSPAC_AC,ALSPAC_AF,AltaiNeandertal,Ancestral_allele,CADD_phred,CADD_raw,CADD_raw_rankscore,DANN_rankscore,DANN_score,Denisova,ESP6500_AA_AC,ESP6500_AA_AF,ESP6500_EA_AC,ESP6500_EA_AF,Eigen-PC-phred,Eigen-PC-raw,Eigen-PC-raw_rankscore,Eigen-phred,Eigen-raw,Eigen_coding_or_noncoding,ExAC_AFR_AC,ExAC_AFR_AF,ExAC_AMR_AC,ExAC_AMR_AF,ExAC_Adj_AC,ExAC_Adj_AF,ExAC_EAS_AC,ExAC_EAS_AF,ExAC_FIN_AC,ExAC_FIN_AF,ExAC_NFE_AC,ExAC_NFE_AF,ExAC_SAS_AC,ExAC_SAS_AF,ExAC_nonTCGA_AC,ExAC_nonTCGA_AF,ExAC_nonTCGA_AFR_AC,ExAC_nonTCGA_AFR_AF,ExAC_nonTCGA_AMR_AC,ExAC_nonTCGA_AMR_AF,ExAC_nonTCGA_Adj_AC,ExAC_nonTCGA_Adj_AF,ExAC_nonTCGA_EAS_AC,ExAC_nonTCGA_EAS_AF,ExAC_nonTCGA_FIN_AC,ExAC_nonTCGA_FIN_AF,ExAC_nonTCGA_NFE_AC,ExAC_nonTCGA_NFE_AF,ExAC_nonTCGA_SAS_AC,ExAC_nonTCGA_SAS_AF,ExAC_nonpsych_AC,ExAC_nonpsych_AF,ExAC_nonpsych_AFR_AC,ExAC_nonpsych_AFR_AF,ExAC_nonpsych_AMR_AC,ExAC_nonpsych_AMR_AF,ExAC_nonpsych_Adj_AC,ExAC_nonpsych_Adj_AF,ExAC_nonpsych_EAS_AC,ExAC_nonpsych_EAS_AF,ExAC_nonpsych_FIN_AC,ExAC_nonpsych_FIN_AF,ExAC_nonpsych_NFE_AC,ExAC_nonpsych_NFE_AF,ExAC_nonpsych_SAS_AC,ExAC_nonpsych_SAS_AF,FATHMM_converted_rankscore,FATHMM_pred,FATHMM_score,GERP++_NR,GERP++_RS,GERP++_RS_rankscore,GM12878_confidence_value,GM12878_fitCons_score,GM12878_fitCons_score_rankscore,GTEx_V6p_gene,GTEx_V6p_tissue,GenoCanyon_score,GenoCanyon_score_rankscore,H1-hESC_confidence_value,H1-hESC_fitCons_score,H1-hESC_fitCons_score_rankscore,clinvar_clnsig,clinvar_golden_stars,HUVEC_confidence_value,HUVEC_fitCons_score,HUVEC_fitCons_score_rankscore,LRT_Omega,LRT_converted_rankscore,LRT_pred,LRT_score,M-CAP_pred,M-CAP_rankscore,M-CAP_score,MetaLR_pred,MetaLR_rankscore,MetaLR_score,MetaSVM_pred,MetaSVM_rankscore,MetaSVM_score,MutPred_AAchange,MutPred_Top5features,MutPred_protID,MutPred_rankscore,MutPred_score,MutationAssessor_UniprotID,MutationAssessor_pred,MutationAssessor_score,MutationAssessor_score_rankscore,MutationAssessor_variant,MutationTaster_AAE,MutationTaster_converted_rankscore,MutationTaster_model,MutationTaster_pred,MutationTaster_score,PROVEAN_converted_rankscore,PROVEAN_pred,PROVEAN_score,Polyphen2_HDIV_pred,Polyphen2_HDIV_rankscore,Polyphen2_HDIV_score,Polyphen2_HVAR_pred,Polyphen2_HVAR_rankscore,Polyphen2_HVAR_score,REVEL_rankscore,REVEL_score,Reliability_index,SIFT_converted_rankscore,SIFT_pred,SIFT_score,SiPhy_29way_logOdds,SiPhy_29way_logOdds_rankscore,SiPhy_29way_pi,TWINSUK_AC,TWINSUK_AF,Transcript_id_VEST3,Transcript_var_VEST3,Uniprot_aapos_Polyphen2,Uniprot_acc_Polyphen2,Uniprot_id_Polyphen2,VEST3_rankscore,VEST3_score,aaalt,aapos,aaref,alt,cds_strand,chr,codon_degeneracy,codonpos,fathmm-MKL_coding_group,fathmm-MKL_coding_pred,fathmm-MKL_coding_rankscore,fathmm-MKL_coding_score,genename,gnomAD_exomes_AFR_AC,gnomAD_exomes_AFR_AF,gnomAD_exomes_AFR_AN,gnomAD_exomes_AMR_AC,gnomAD_exomes_AMR_AF,gnomAD_exomes_AMR_AN,gnomAD_exomes_AN,gnomAD_exomes_ASJ_AC,gnomAD_exomes_ASJ_AF,gnomAD_exomes_ASJ_AN,gnomAD_exomes_EAS_AC,gnomAD_exomes_EAS_AF,gnomAD_exomes_EAS_AN,gnomAD_exomes_FIN_AC,gnomAD_exomes_FIN_AF,gnomAD_exomes_FIN_AN,gnomAD_exomes_NFE_AC,gnomAD_exomes_NFE_AF,gnomAD_exomes_NFE_AN,gnomAD_exomes_OTH_AC,gnomAD_exomes_OTH_AF,gnomAD_exomes_OTH_AN,gnomAD_exomes_SAS_AC,gnomAD_exomes_SAS_AF,gnomAD_exomes_SAS_AN,gnomAD_genomes_AFR_AC,gnomAD_genomes_AFR_AF,gnomAD_genomes_AFR_AN,gnomAD_genomes_AMR_AC,gnomAD_genomes_AMR_AF,gnomAD_genomes_AMR_AN,gnomAD_genomes_AN,gnomAD_genomes_ASJ_AC,gnomAD_genomes_ASJ_AF,gnomAD_genomes_ASJ_AN,gnomAD_genomes_EAS_AC,gnomAD_genomes_EAS_AF,gnomAD_genomes_EAS_AN,gnomAD_genomes_FIN_AC,gnomAD_genomes_FIN_AF,gnomAD_genomes_FIN_AN,gnomAD_genomes_NFE_AC,gnomAD_genomes_NFE_AF,gnomAD_genomes_NFE_AN,gnomAD_genomes_OTH_AC,gnomAD_genomes_OTH_AF,gnomAD_genomes_OTH_AN,integrated_confidence_value,integrated_fitCons_score,integrated_fitCons_score_rankscore,phastCons100way_vertebrate,phastCons100way_vertebrate_rankscore,phastCons20way_mammalian,phastCons20way_mammalian_rankscore,phyloP100way_vertebrate,phyloP100way_vertebrate_rankscore,phyloP20way_mammalian,phyloP20way_mammalian_rankscore,pos(1-based),ref,refcodon,Condel"
+data_dir=/hps/nobackup2/production/ensembl/anja/vep_data/
+vep_cache_dir=/nfs/production/panda/ensembl/variation/data/VEP/tabixconverted/
+perl  $HOME/bin/ensembl-vep/vep \
+--dir_cache $vep_cache_dir \
+--offline --cache --cache_version 97 --assembly GRCh37 \
+--input_file $data_dir/input/grch37/P1.vcf.gz \
+--output_file $data_dir/output/grch37/input_file_23082019.out \
+--verbose \
+--format vcf \
+--force_overwrite \
+--refseq \
+--use_given_ref \
+--tab \
+--check_existing \
+--biotype \
+--canonical \
+--domains \
+--uniprot \
+--ccds \
+--symbol \
+--protein \
+--hgvs \
+--no_escape \
+--numbers \
+--show_ref_allele \
+--allele_number \
+--no_escape \
+--fields $SIRA \
+--fasta /nfs/production/panda/ensembl/variation/data/Homo_sapiens.GRCh37.dna.primary_assembly.fa.gz \
+--dir_plugins $HOME/bin/VEP_plugins \
+--plugin Phenotypes,file=/homes/anja/bin/VEP_plugins/Phenotypes.pm_homo_sapiens_97_GRCh37.gvf.gz,include_types=Gene \
+--plugin dbNSFP,/nfs/production/panda/ensembl/variation/data/dbNSFP/3.5a_grch37/dbNSFP3.5a_grch37.txt.gz,ALL \
+--humdiv --polyphen p --sift p --variant_class \
+--individual all \
