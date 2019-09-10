@@ -11,10 +11,11 @@ my $registry = 'Bio::EnsEMBL::Registry';
 #my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/grch37/dumps/';
 #my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_95/human/dumps/';
 #my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_95/human/grch37/dumps/';
-my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_96/dumps/vertebrates/';
+#my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_96/dumps/vertebrates/';
 #my $registry_file = '/hps/nobackup/production/ensembl/anja/release_92/dumps/grch38/ensembl.registry';
 #my $registry_file = '/hps/nobackup/production/ensembl/anja/release_90/dumps_human/ensembl.registry';
 
+my $data_dump_dir = '/hps/nobackup2/production/ensembl/anja/release_98/human/dumps/vertebrates/variation/';
 
 #$registry->load_all($registry_file);
 #my $vdbas = $registry->get_all_DBAdaptors(-group => 'variation');

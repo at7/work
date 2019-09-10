@@ -12,7 +12,8 @@ use FileHandle;
 #my $dir = '/hps/nobackup2/production/ensembl/anja/release_95/human/grch37/dumps/gvf/homo_sapiens/';
 
 
-my $dir = '/hps/nobackup2/production/ensembl/anja/release_97/human/dumps/population_dumps/gvf/homo_sapiens/';
+
+my $dir = '/hps/nobackup2/production/ensembl/anja/release_98/human/dumps/population_dumps/gvf/homo_sapiens/';
 
 my $fh_out = FileHandle->new("$dir/1000GENOMES-phase_3.gvf", 'w'); 
 

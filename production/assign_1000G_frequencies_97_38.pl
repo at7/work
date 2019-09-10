@@ -3,7 +3,7 @@ use warnings;
 
 use FileHandle;
 use Compress::Zlib;
-
+use Bio::EnsEMBL::Variation::Utils::Sequence qw(trim_right trim_sequences get_matched_variant_alleles);
 my $chrom = $ENV{'LSB_JOBINDEX'};
 
 if ($chrom == 23) {
@@ -18,9 +18,9 @@ if ($chrom == 24) {
 #my $vcf_file = '/hps/nobackup/production/ensembl/anja/release_92/human/grch37/vcf2/homo_sapiens/homo_sapiens.vcf.gz';
 #my $vcf_file = "/hps/nobackup2/production/ensembl/anja/release_94/human/grch37/dumps/vcf/homo_sapiens/homo_sapiens-chr$chrom.vcf.gz";
 #my $vcf_file = "/hps/nobackup2/production/ensembl/anja/release_94/human/grch37/dumps/vcf/homo_sapiens/homo_sapiens-chr$chrom.vcf.gz";
-my $vcf_file = "/hps/nobackup2/production/ensembl/anja/release_97/human/dumps/vertebrates/vcf/backup_generic/homo_sapiens-chr$chrom.vcf.gz";
+my $vcf_file = "/hps/nobackup2/production/ensembl/anja/release_98/human/dumps/vertebrates/variation/vcf/homo_sapiens/homo_sapiens-chr$chrom.vcf.gz";
 
-my $fh_out = FileHandle->new("/hps/nobackup2/production/ensembl/anja/release_97/human/dumps/vertebrates/vcf/backup/1000GENOMES-phase_3_chrom$chrom.vcf", 'w');
+my $fh_out = FileHandle->new("/hps/nobackup2/production/ensembl/anja/release_98/human/dumps/population_dumps/vcf/homo_sapiens/1000GENOMES-phase_3_chrom$chrom.vcf", 'w');
 
 my $fh_in = gzopen($vcf_file, "rb") or die "Error reading $vcf_file: $gzerrno\n";
 
@@ -83,12 +83,29 @@ while ($fh_in->gzreadline($_) > 0) {
     }
 
     my @updated_frequencies = ();
+    my $all_freqs_are_null = 1;
+    my $before =  $ref . '/' . join('/', @alts);
+
+    my $dbSNP_alleles_string = $ref . '/' .join('/', @alts);
+
+    my $var_a = {allele_string => $dbSNP_alleles_string, pos => 1};
+    my $var_b = {allele_string => $vcf_alleles_string, pos => 1};
+    my $matched_alleles = get_matched_variant_alleles($var_a, $var_b);
+    my $matched_alleles_mapping = {};
+    foreach my $hash (@{$matched_alleles}) {
+      my $a_allele = $hash->{'a_allele'};
+      my $b_allele = $hash->{'b_allele'};
+      $matched_alleles_mapping->{$a_allele} = $b_allele;
+    }
+
 
     foreach my $population (qw/EAS_AF EUR_AF AMR_AF SAS_AF AFR_AF/) {
       my $lookup = $frequency_lookup->{$population};
       my @ensembl_frequencies = ();
       foreach my $alt (@alts) {
-        my $freq = $lookup->{$alt} || 0;
+        my $matched_alt = $matched_alleles_mapping->{$alt} || 'NA';
+        my $freq = $lookup->{$matched_alt} || 0;
+        $all_freqs_are_null = 0 if ($freq > 0);
         push @ensembl_frequencies, $freq;
       }
       my $joined_freqs = join(',', @ensembl_frequencies);
@@ -98,6 +115,9 @@ while ($fh_in->gzreadline($_) > 0) {
     my $info = $values[7];
     $info = $info . ';' . join(';', @updated_frequencies);
     print $fh_out join("\t", $values[0], $values[1], $values[2], $values[3], $values[4], $values[5], $values[6], $info), "\n";
+    if ($all_freqs_are_null) {
+      print STDERR "$rs from dumps: $before from 1000Genomes $vcf_alleles_string\n";
+    }
   }
 
 }

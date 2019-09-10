@@ -4,7 +4,11 @@ use warnings;
 use FileHandle;
 #my $dir = '/hps/nobackup2/production/ensembl/anja/release_94/human/grch37/dumps/vcf/homo_sapiens/';
 #my $dir = '/hps/nobackup2/production/ensembl/anja/release_96/human/dumps/population_dumps/vcf/homo_sapiens/';
-my $dir = '/hps/nobackup2/production/ensembl/anja/release_97/human/dumps/vertebrates/vcf/backup/';
+#my $dir = '/hps/nobackup2/production/ensembl/anja/release_97/human/dumps/vertebrates/vcf/backup/';
+
+my $dir = '/hps/nobackup2/production/ensembl/anja/release_98/human/dumps/population_dumps/vcf/homo_sapiens/';
+
+
 my $fh_out = FileHandle->new("$dir/1000GENOMES-phase_3.vcf", 'w'); 
 
 my $fh_in = FileHandle->new("$dir/1000GENOMES-phase_3_chromY.vcf", 'r');
