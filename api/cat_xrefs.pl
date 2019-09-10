@@ -2,20 +2,19 @@ use strict;
 use warnings;
 
 use Bio::EnsEMBL::Registry;
-
 my $registry = 'Bio::EnsEMBL::Registry';
 
-#$registry->load_registry_from_db(
-#  -host => 'mysql-ens-sta-1',
-#  -user => 'ensro',
-#  -port => 4519,
-#);
-
 $registry->load_registry_from_db(
-  -host => 'ensembldb.ensembl.org',
-  -user => 'anonymous',
-  -DB_VERSION => 97,
+  -host => 'mysql-ens-sta-1',
+  -user => 'ensro',
+  -port => 4519,
 );
+
+#$registry->load_registry_from_db(
+#  -host => 'ensembldb.ensembl.org',
+#  -user => 'anonymous',
+#  -DB_VERSION => 97,
+#);
 
 
 my $vdba = $registry->get_DBAdaptor('cat', 'variation');
@@ -25,6 +24,15 @@ my $ga = $cdba->get_GeneAdaptor;
 
 my $gene = $ga->fetch_by_stable_id('ENSFCAG00000026758');
 
-my $gene_name = $gene->display_xref->display_id;
+#my $gene_name = $gene->display_xref->display_id;
 
-print $gene_name, "\n";
+#print $gene_name, "\n";
+
+my $symbol = 'PITX3';
+
+my $genes = $ga->fetch_all_by_external_name('PITX3');
+
+foreach my $gene (@$genes) {
+  print $gene->stable_id, "\n";
+}
+
